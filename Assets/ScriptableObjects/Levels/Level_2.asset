@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba78b19af4fb87e48bb22f5b9dc71512, type: 3}
-  m_Name: Level_1 1
+  m_Name: Level_2
   m_EditorClassIdentifier: 
   levelNumber: 0
   playerStartingPos: {x: 0, y: 0}
