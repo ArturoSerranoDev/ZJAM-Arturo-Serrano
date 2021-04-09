@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotate: Command
+[CreateAssetMenu(menuName = "Create Command/Use", fileName = "Use", order = 1)]
+public class Use: Command
 {
-    // 1 moves right, -1 moves left
-    public int rotDir;
     public override CommandType GetCommandType()
     {
-        return CommandType.Rotate;
+        return CommandType.Use;
     }
 }

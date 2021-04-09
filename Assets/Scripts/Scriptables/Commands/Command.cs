@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum CommandType { Move, Rotate, Pick, Use, Finish}
 
-public abstract class Command
+public abstract class Command: ScriptableObject
 {
     //public CommandType commandType;
 

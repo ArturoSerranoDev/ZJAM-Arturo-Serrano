@@ -8,6 +8,8 @@ public enum SlotType { Input, Selected}
 public class CommandSlot : MonoBehaviour, IDropHandler
 {
     public int itemAmount;
+    public int index;
+
     public SlotType slotType;
 
     public void OnDrop(PointerEventData eventData)

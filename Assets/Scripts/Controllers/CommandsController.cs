@@ -8,6 +8,7 @@ public class CommandsController : MonoBehaviour
     public List<CommandView> availableCommands = new List<CommandView>();
     public List<CommandView> selectedCommands = new List<CommandView>();
 
+
     public GameObject selectedCommandGO;
 
     void Awake()
@@ -19,7 +20,22 @@ public class CommandsController : MonoBehaviour
         }
     }
 
-    public void OnCommandPicked(CommandView commandView)
+
+    public Dictionary<int, Command> GetCommandsByIndex()
+    {
+        Dictionary<int, Command> commandByIndex = new Dictionary<int, Command>();
+
+        foreach (CommandView commandView in selectedCommands)
+        {
+            commandByIndex[commandView.commandSlot.index] = commandView.command;
+
+            Debug.Log("CommandsIndex: At index " + commandView.commandSlot.index + " is the command " + commandView.command.GetCommandType().ToString());
+        }
+
+        return commandByIndex;
+    }
+
+public void OnCommandPicked(CommandView commandView)
     {
         selectedCommandGO = commandView.gameObject;
         Debug.Log("CommandsController: OnCommandPicked");
@@ -47,8 +63,6 @@ public class CommandsController : MonoBehaviour
             // If not, tween to previous position
             selectedCommandGO.transform.DOMove(commandView.commandSlot.transform.position, 0.5f);
         }
-
-    
 
         selectedCommandGO = null;
         Debug.Log("CommandsController: OnCommandDropped");

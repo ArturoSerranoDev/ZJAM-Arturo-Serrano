@@ -14,6 +14,8 @@ public class CommandView : MonoBehaviour
     public delegate void OnCommandDropped(CommandView command);
     public event OnCommandDropped onCommandDropped;
 
+    public Command command;
+
     private void Awake()
     {
         commandDragDrop.onPicked += OnPicked;
