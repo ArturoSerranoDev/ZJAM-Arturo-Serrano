@@ -25,4 +25,14 @@ public class LevelBuilder : MonoBehaviour
             }
         }
     }
+
+    public void BuildLevel(LevelData levelData)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerator LoadLevelCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+    }
 }
