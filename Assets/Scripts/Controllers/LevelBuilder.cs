@@ -18,10 +18,10 @@ public class LevelBuilder : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
-            for (int j = 0; j < size; i++)
+            for (int j = 0; j < size; j++)
             {
                 GameObject newTile = Instantiate(floorPrefab);
-                newTile.transform.position = new Vector3(i, 0, j);
+                newTile.transform.position = new Vector3(i - 4, 0, j - 4);
             }
         }
     }
