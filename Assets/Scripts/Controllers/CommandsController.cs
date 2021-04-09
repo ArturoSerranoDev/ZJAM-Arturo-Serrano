@@ -8,7 +8,7 @@ public class CommandsController : MonoBehaviour
     public List<CommandView> availableCommands = new List<CommandView>();
     public List<CommandView> selectedCommands = new List<CommandView>();
 
-    public GameObject selectedCommand;
+    public GameObject selectedCommandGO;
 
     void Awake()
     {
@@ -21,18 +21,36 @@ public class CommandsController : MonoBehaviour
 
     public void OnCommandPicked(CommandView commandView)
     {
-        selectedCommand = commandView.gameObject;
+        selectedCommandGO = commandView.gameObject;
         Debug.Log("CommandsController: OnCommandPicked");
     }
 
     public void OnCommandDropped(CommandView commandView)
     {
-        // If it has item slot set it there
+        if(commandView.commandSlot == null)
+        {
+            Debug.LogWarning("Never a commandviewshould be empty of commandslot");
+        }
 
-        // If not, tween to previous position
-        selectedCommand.transform.DOMove(commandView.commandSlot.transform.position, 0.5f);
+        if (commandView.commandSlot.slotType == SlotType.Input && !availableCommands.Contains(commandView))
+        {
+            selectedCommands.Remove(commandView);
+            availableCommands.Add(commandView);
+        }
+        else if (commandView.commandSlot.slotType == SlotType.Selected && !selectedCommands.Contains(commandView))
+        {
+            selectedCommands.Add(commandView);
+            availableCommands.Remove(commandView);
+        }
+        else
+        {
+            // If not, tween to previous position
+            selectedCommandGO.transform.DOMove(commandView.commandSlot.transform.position, 0.5f);
+        }
 
-        selectedCommand = null;
+    
+
+        selectedCommandGO = null;
         Debug.Log("CommandsController: OnCommandDropped");
 
     }
