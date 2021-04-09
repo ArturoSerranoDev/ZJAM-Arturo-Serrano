@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Move: Command
 {
-    public Vector2 dir;
+    // 1 forward, -1 backwards
+    public int dir;
     public override CommandType GetCommandType()
     {
         return CommandType.Move;
