@@ -10,6 +10,6 @@ public class Move: Command
     public int dir;
     public override CommandType GetCommandType()
     {
-        return CommandType.Move;
+        return dir == 1 ? CommandType.MoveUp : CommandType.MoveBack;
     }
 }

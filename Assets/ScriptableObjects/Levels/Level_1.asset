@@ -18,6 +18,15 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 0}
     enemyPos: {x: 0, y: 0}
     enemyPatrolPoints: []
+  commandData:
+  - commandType: 0
+    amount: 3
+  - commandType: 2
+    amount: 2
+  - commandType: 3
+    amount: 2
+  - commandType: 6
+    amount: 1
   levelTiles:
   - T
   - T

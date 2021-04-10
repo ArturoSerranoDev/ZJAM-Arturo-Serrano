@@ -10,7 +10,7 @@ public class LevelController : UnitySingletonPersistent<LevelController>
     public CommandsController commandsController;
     public ChapterConfig chapterConfig;
 
-    public List<Command> commandsOrdered = new List<Command>();
+    public List<CommandView> commandsOrdered = new List<CommandView>();
 
     // EVENTS
     public delegate void OnGameStart();
@@ -67,11 +67,6 @@ public class LevelController : UnitySingletonPersistent<LevelController>
         Play();
     }
 
-    void SortInputIfNeeded()
-    {
-        commandsController.SortInputIfNeeded();
-    }
-
     public void Play()
     {
         // Get/Set all necessary values before playing
@@ -82,17 +77,9 @@ public class LevelController : UnitySingletonPersistent<LevelController>
         StartCoroutine(PlayTurnCoroutine());
     }
 
-    List<Command> GetCommandsOrderedByIndex()
+    List<CommandView> GetCommandsOrderedByIndex()
     {
-        Dictionary<int, CommandView> commandsByIndex = commandsController.GetCommandsByIndex();
-        List<Command> orderedCommands = new List<Command>();
-
-        for (int i = 0; i < commandsByIndex.Count; i++)
-        {
-            orderedCommands.Add(commandsByIndex[i].command);
-        }
-
-        return orderedCommands;
+        return commandsController.commands;
     }
 
 

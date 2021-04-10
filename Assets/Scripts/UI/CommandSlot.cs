@@ -5,22 +5,11 @@ using UnityEngine.EventSystems;
 
 public enum SlotType { Input, Selected}
 
-public class CommandSlot : MonoBehaviour, IDropHandler
+public class CommandSlot : MonoBehaviour
 {
-    public int itemAmount;
     public int index;
 
     public SlotType slotType;
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        Debug.Log("OnDrop");
-
-        if (eventData.pointerDrag != null)
-        {
-            eventData.pointerDrag.GetComponent<RectTransform>().position = GetComponent<RectTransform>().position;
-            eventData.pointerDrag.GetComponent<CommandView>().commandSlot = this;
-        }
-    }
-
+    public CommandType itemCommandType = CommandType.None;
+    
 }

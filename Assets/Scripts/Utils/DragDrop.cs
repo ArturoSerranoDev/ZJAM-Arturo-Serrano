@@ -17,6 +17,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     void Awake()
     {
+        inputCanvas = FindObjectOfType<Canvas>();
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
     }
@@ -40,7 +41,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("OnEndDrag");
-        canvasGroup.blocksRaycasts = true;
+        //canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1;
         onDropped?.Invoke();
     }

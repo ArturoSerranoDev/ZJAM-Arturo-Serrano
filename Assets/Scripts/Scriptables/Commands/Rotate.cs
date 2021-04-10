@@ -9,6 +9,6 @@ public class Rotate: Command
     public int rotDir;
     public override CommandType GetCommandType()
     {
-        return CommandType.Rotate;
+        return rotDir == 1 ? CommandType.RotateRigth : CommandType.RotateLeft;
     }
 }

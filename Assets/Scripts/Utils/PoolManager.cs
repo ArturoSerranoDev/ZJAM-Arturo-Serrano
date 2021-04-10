@@ -106,7 +106,17 @@ public class Pool
         
         go.transform.position = pos;
         go.transform.rotation = rot;
-        go.transform.SetParent(poolParent.transform, false);
+
+        if (parent == null)
+        {
+            go.transform.SetParent(poolParent.transform, false);
+
+        }
+        else
+        {
+            go.transform.SetParent(parent, false);
+
+        }
         go.gameObject.SetActive(true);
 
         return go;

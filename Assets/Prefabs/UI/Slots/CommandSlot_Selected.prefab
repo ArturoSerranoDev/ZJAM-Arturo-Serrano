@@ -88,4 +88,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemAmount: 0
+  index: 0
   slotType: 1
+  itemCommandType: 7

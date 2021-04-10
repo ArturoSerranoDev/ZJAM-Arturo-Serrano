@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CommandType { Move, Rotate, Pick, Use, Finish}
+public enum CommandType { MoveUp, MoveBack, RotateRigth, RotateLeft, Pick, Use, Finish, None}
 
 public abstract class Command: ScriptableObject
 {

@@ -6,117 +6,87 @@ using System;
 
 public class CommandsController : MonoBehaviour
 {
-    public List<CommandView> availableCommands = new List<CommandView>();
-    public List<CommandView> selectedCommands = new List<CommandView>();
-    public List<int> selectedCommandsIndex = new List<int>();
+    [Header("Prefabs")]
+    public GameObject moveUpCommandPrf;
+    public GameObject moveDownCommandPrf;
+    public GameObject rotateRigthCommandPrf;
+    public GameObject RotateLeftCommandPrf;
+    public GameObject pickCommandPrf;
+    public GameObject useCommandPrf;
+    public GameObject finishCommandPrf;
 
+    public GameObject commandsParent;
+
+    public List<CommandView> commands = new List<CommandView>();
     public List<CommandSlot> selectedCommandsSlots = new List<CommandSlot>();
-
-
-    Dictionary<int, CommandView> commandByIndex = new Dictionary<int, CommandView>();
-    Dictionary<int, CommandView> commandByIndexSorted = new Dictionary<int, CommandView>();
-
 
     public GameObject selectedCommandGO;
 
     void Awake()
     {
-        foreach (CommandView commandView in availableCommands)
-        {
-            commandView.onCommandPicked += OnCommandPicked;
-            commandView.onCommandDropped += OnCommandDropped;
-        }
+        //foreach (CommandView commandView in availableCommands)
+        //{
+        //    commandView.onCommandPicked += OnCommandPicked;
+        //    commandView.onCommandDropped += OnCommandDropped;
+        //}
     }
 
-    public Dictionary<int, CommandView> GetCommandsByIndex()
+    public void AddCommand(CommandType commandType)
     {
-        commandByIndex.Clear();
-        commandByIndexSorted.Clear();
-
-        foreach (CommandView commandView in selectedCommands)
+        GameObject newCommand = null;
+        switch (commandType)
         {
-            commandByIndex[commandView.commandSlot.index] = commandView;
+            case CommandType.MoveUp:
+                newCommand = PoolManager.Instance.Spawn(moveUpCommandPrf,
+                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                break;
+            case CommandType.MoveBack:
+                newCommand = PoolManager.Instance.Spawn(moveDownCommandPrf,
+                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                break;
 
-            Debug.Log("CommandsIndex: At index " + commandView.commandSlot.index + " is the command " + commandView.command.GetCommandType().ToString());
+            case CommandType.RotateLeft:
+                newCommand = PoolManager.Instance.Spawn(RotateLeftCommandPrf,
+                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                break;
+
+            case CommandType.RotateRigth:
+                newCommand = PoolManager.Instance.Spawn(rotateRigthCommandPrf,
+                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                break;
+
+            case CommandType.Use:
+                newCommand = PoolManager.Instance.Spawn(useCommandPrf,
+                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                break;
+
+            case CommandType.Pick:
+                newCommand = PoolManager.Instance.Spawn(moveUpCommandPrf,
+                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                break;
+
+                break;
+            case CommandType.Finish:
+                newCommand = PoolManager.Instance.Spawn(finishCommandPrf,
+                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                break;
+
         }
 
-        selectedCommandsIndex.Sort();
-
-        for (int i = 0; i < selectedCommandsIndex.Count; i++)
-        {
-            commandByIndexSorted[i] = commandByIndex[selectedCommandsIndex[i]];
-            commandByIndexSorted[i].commandSlot = selectedCommandsSlots[i];
-
-            // Move to right pos
-            if (i != selectedCommandsIndex[i])
-            {
-                commandByIndexSorted[i].transform.DOMove(selectedCommandsSlots[i].transform.position, 0.5f);
-            }
-        }
-
-        return commandByIndexSorted;
+        commands.Add(newCommand.GetComponent<CommandView>());
     }
 
-    public void OnCommandPicked(CommandView commandView)
+    public void RemoveLastCommand()
     {
-        selectedCommandGO = commandView.gameObject;
-        Debug.Log("CommandsController: OnCommandPicked");
-    }
+        // Remove command animation
 
-    public void OnCommandDropped(CommandView commandView)
-    {
-        if(commandView.commandSlot == null)
-        {
-            Debug.LogWarning("Never a commandviewshould be empty of commandslot");
-        }
-
-        if (commandView.commandSlot.slotType == SlotType.Input && !availableCommands.Contains(commandView))
-        {
-            selectedCommands.Remove(commandView);
-            selectedCommandsIndex.Remove(commandView.commandSlot.index);
-            availableCommands.Add(commandView);
-        }
-        else if (commandView.commandSlot.slotType == SlotType.Selected && !selectedCommands.Contains(commandView))
-        {
-            selectedCommands.Add(commandView);
-            selectedCommandsIndex.Add(commandView.commandSlot.index);
-            availableCommands.Remove(commandView);
-        }
-        else
-        {
-            // If not, tween to previous position
-            selectedCommandGO.transform.DOMove(commandView.commandSlot.transform.position, 0.5f);
-        }
-
-        selectedCommandGO = null;
-        Debug.Log("CommandsController: OnCommandDropped");
+        // Remove last
+        PoolManager.Instance.Despawn(commands[commands.Count - 1].gameObject);
+        commands.RemoveAt(commands.Count - 1);
 
     }
 
-    public void SortInputIfNeeded()
-    {
-        selectedCommandsIndex.Sort();
 
-        int lastIndex = 0;
-        int difference = 0;
-        for (int i = 0; i < selectedCommandsIndex[selectedCommandsIndex.Count - 1]; i++)
-        {
-            while (!selectedCommandsIndex.Contains(lastIndex + difference))
-            {
-                difference++;
-            }
 
-            commandByIndexSorted[i] = commandByIndex[i + difference];
-            commandByIndexSorted[i].commandSlot = selectedCommandsSlots[i];
 
-            // Move to right pos
-            if (difference != 0)
-            {
-                commandByIndexSorted[i].transform.DOMove(selectedCommandsSlots[i].transform.position, 0.5f);
-            }
-
-            lastIndex = i;
-            difference = 0;
-        }
-    }
 }

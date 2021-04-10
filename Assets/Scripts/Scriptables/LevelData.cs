@@ -10,6 +10,7 @@ public class LevelData : ScriptableObject
    public int levelNumber;
    public Vector2 playerStartingPos;
    public List<EnemyData> enemiesData;
+   public List<CommandData> commandData;
 
    public List<string> levelTiles;
    public ObjectiveType levelObjective;
@@ -21,4 +22,11 @@ public class EnemyData
    public GameObject enemyPrefab;
    public Vector2 enemyPos;
    public List<Vector2> enemyPatrolPoints;
+}
+
+[System.Serializable]
+public class CommandData
+{
+    public CommandType commandType;
+    public int amount;
 }
