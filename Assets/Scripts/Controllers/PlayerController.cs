@@ -21,6 +21,18 @@ public class PlayerController : MonoBehaviour
         {
             case CommandType.MoveUp:
             case CommandType.MoveBack:
+                // Check if pos is available
+
+                // if not, play stuck anim
+                if (!IsNextTileValidMove(commandView.commandType))
+                {
+                    tweenAction = transform.DOShakePosition(0.5f);
+
+                    yield return tweenAction.WaitForCompletion();
+                    break;
+                }
+
+                // Else move
                 Move moveCommand = command as Move;
                 tweenAction = transform.DOMove(transform.position + (moveCommand.dir * transform.forward), 0.5f);
 
@@ -34,6 +46,29 @@ public class PlayerController : MonoBehaviour
                 yield return tweenAction.WaitForCompletion();
                 break;
         }
-        yield return new WaitForEndOfFrame();
+
+    }
+
+    public bool IsNextTileValidMove(CommandType command) 
+    {
+        RaycastHit hit;
+        int layerMask = 1 << 8;
+        int dir = command == CommandType.MoveUp ? 1 : -1;
+        layerMask = ~layerMask;
+
+        if (Physics.Raycast(transform.position, transform.forward * dir, out hit, 1f, layerMask))
+            if (hit.collider != null)
+            {
+                Debug.Log("IsNextTileValidMove false");
+                return false;
+            }
+            else
+            {
+                Debug.Log("IsNextTileValidMove true ");
+                return true;
+
+            }
+
+        return true;
     }
 }

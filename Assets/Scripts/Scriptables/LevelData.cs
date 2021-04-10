@@ -8,7 +8,7 @@ public enum ObjectiveType {Survive, Escape, Kill}
 public class LevelData : ScriptableObject
 {
    public int levelNumber;
-   public Vector2 playerStartingPos;
+   public Vector3 playerStartingPos;
    public List<EnemyData> enemiesData;
    public List<CommandData> commandData;
 

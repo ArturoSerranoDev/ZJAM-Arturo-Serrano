@@ -24,11 +24,6 @@ public class CommandsController : MonoBehaviour
 
     void Awake()
     {
-        //foreach (CommandView commandView in availableCommands)
-        //{
-        //    commandView.onCommandPicked += OnCommandPicked;
-        //    commandView.onCommandDropped += OnCommandDropped;
-        //}
     }
 
     public void AddCommand(string commandType)

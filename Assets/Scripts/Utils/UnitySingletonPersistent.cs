@@ -46,7 +46,7 @@ public abstract class UnitySingletonPersistent<T> : MonoBehaviour where T : Comp
         else
         {
             Debug.Log("UnitySingleton Destroy: " + instance.GetType().Name);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
         

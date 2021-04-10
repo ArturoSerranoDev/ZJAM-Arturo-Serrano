@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   levelNumber: 1
-  playerStartingPos: {x: 0, y: 0}
+  playerStartingPos: {x: -3.5, y: 0, z: 0.5}
   enemiesData:
   - enemyPrefab: {fileID: 0}
     enemyPos: {x: 0, y: 0}

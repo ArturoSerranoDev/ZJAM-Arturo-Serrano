@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3757197769826930957}
   - component: {fileID: 3757197769826930954}
   - component: {fileID: 3757197769826930955}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3757197770182075365}
   - component: {fileID: -4230047881754531526}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}

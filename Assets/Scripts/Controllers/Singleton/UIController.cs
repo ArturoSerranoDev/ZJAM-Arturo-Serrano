@@ -1,14 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
-    //[Header("Game Panel")]
-    //[SerializeField] Text playScoreText;
-    //[SerializeField] GameObject closeHighScoreGO;
-    //[SerializeField] GameObject newHighScoreTextGO;
-    //[SerializeField] List<GameObject> livesImage;
+    [Header("Game Panel")]
+    [SerializeField] TextMeshProUGUI turnText;
+    [SerializeField] RectTransform PlayButton;
+    [SerializeField] RectTransform PauseButton;
+    [SerializeField] RectTransform RestartButton;
 
     //[Header("Pause Panel")]
     //[SerializeField] GameObject pausePanel;
@@ -36,14 +39,20 @@ public class UIController : MonoBehaviour
     //    }
     //}
 
-    //public void OnEnable()
-    //{
-    //    LevelManager.onGameWon += OnGameWon;
-    //    LevelManager.onGameLost += OnGameLost;
-    //    LevelManager.onGamePaused += PauseGame;
-    //    LevelManager.onHighScoreReached += OnHighScoreReached;
-    //    LevelManager.onCloseToHighScoreReached += OnCloseHighScoreReached;
-    //}
+    public void OnEnable()
+    {
+        //LevelController.Instance.onGameStart += OnGameStart;
+        //LevelController.Instance.onGamePaused += OnGameStart;
+        //LevelController.Instance.onGameWon += OnGameStart;
+        //LevelController.Instance.onGameLost += OnGameStart;
+        LevelController.Instance.onTurnEnded += OnTurnEnded;
+
+    }
+
+    public void OnTurnEnded(int turn)
+    {
+        turnText.text = turn.ToString();
+    }
 
     //public void OnDisable()
     //{
@@ -138,4 +147,11 @@ public class UIController : MonoBehaviour
 
     //    playScoreText.text = string.Empty;
     //}
+
+    public IEnumerator PlayPressedCoroutine()
+    {
+        Tween playTween = PlayButton.DOMoveY(PlayButton.position.y + 200, 0.5f);
+
+        yield return playTween.WaitForCompletion();
+    }
 }

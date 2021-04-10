@@ -8,6 +8,7 @@ public class LevelController : UnitySingletonPersistent<LevelController>
     [Header("Controllers")]
     public LevelBuilder levelBuilder;
     public CommandsController commandsController;
+    public UIController uiController;
     public ChapterConfig chapterConfig;
 
     public List<CommandView> commandsOrdered = new List<CommandView>();
@@ -47,6 +48,8 @@ public class LevelController : UnitySingletonPersistent<LevelController>
         LevelData levelData = chapterConfig.levels[currentLevel];
 
         levelBuilder.BuildLevel(levelData);
+        playerController = levelBuilder.player.GetComponent<PlayerController>();
+
     }
 
     public IEnumerator LoadLevelCoroutine()
@@ -58,20 +61,30 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     public void PlayButtonPressed()
     {
+        // Get/Set all necessary values before playing
+        commandsOrdered = GetCommandsOrderedByIndex();
+
+        if (commandsOrdered.Count <= 0)
+        {
+            // Do not allow, play SFX of error 
+
+            return;
+        }
 
 
+        StartCoroutine(PlayPressedCoroutine());
+    }
 
-
-        // Show UI play anim
+    public IEnumerator PlayPressedCoroutine()
+    {
+        yield return StartCoroutine(uiController.PlayPressedCoroutine());
 
         Play();
     }
 
     public void Play()
     {
-        // Get/Set all necessary values before playing
-        playerController = levelBuilder.player.GetComponent<PlayerController>();
-        commandsOrdered = GetCommandsOrderedByIndex();
+
 
         // Start Play Coroutine
         StartCoroutine(PlayTurnCoroutine());

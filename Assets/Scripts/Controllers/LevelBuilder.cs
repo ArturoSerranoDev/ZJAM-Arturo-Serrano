@@ -50,6 +50,8 @@ public class LevelBuilder : MonoBehaviour
     {
         player = PoolManager.Instance.Spawn(playerPrefab, Vector3.zero, Quaternion.identity);
 
+        player.transform.position = levelData.playerStartingPos;
+
         Debug.Log("SpawnPlayer");
 
     }
