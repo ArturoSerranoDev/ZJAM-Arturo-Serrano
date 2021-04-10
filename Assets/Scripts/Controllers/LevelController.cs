@@ -58,9 +58,18 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     public void PlayButtonPressed()
     {
+
+
+
+
         // Show UI play anim
 
         Play();
+    }
+
+    void SortInputIfNeeded()
+    {
+        commandsController.SortInputIfNeeded();
     }
 
     public void Play()
@@ -75,17 +84,18 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     List<Command> GetCommandsOrderedByIndex()
     {
-
-        Dictionary<int, Command> commandsByIndex = commandsController.GetCommandsByIndex();
+        Dictionary<int, CommandView> commandsByIndex = commandsController.GetCommandsByIndex();
         List<Command> orderedCommands = new List<Command>();
 
         for (int i = 0; i < commandsByIndex.Count; i++)
         {
-            orderedCommands.Add(commandsByIndex[i]);
+            orderedCommands.Add(commandsByIndex[i].command);
         }
 
         return orderedCommands;
     }
+
+
 
     IEnumerator PlayTurnCoroutine()
     {
