@@ -15,9 +15,20 @@ MonoBehaviour:
   levelNumber: 1
   playerStartingPos: {x: -3.5, y: 0, z: 0.5}
   enemiesData:
-  - enemyPrefab: {fileID: 0}
-    enemyPos: {x: 0, y: 0}
-    enemyPatrolPoints: []
+  - enemyPrefab: {fileID: 4451251609196532674, guid: ac333db5093235a45be470df0253a41d,
+      type: 3}
+    enemyPos: {x: 5, y: 5}
+    enemyCommands:
+    - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
+    - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
+    - {fileID: 11400000, guid: 6f00a846037584d44b3dcc12a347bb1c, type: 2}
+    - {fileID: 11400000, guid: 6f00a846037584d44b3dcc12a347bb1c, type: 2}
+  - enemyPrefab: {fileID: 4451251609196532674, guid: ac333db5093235a45be470df0253a41d,
+      type: 3}
+    enemyPos: {x: 8, y: 8}
+    enemyCommands:
+    - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
+    - {fileID: 11400000, guid: 6f00a846037584d44b3dcc12a347bb1c, type: 2}
   commandData:
   - commandType: 0
     amount: 3
@@ -27,6 +38,7 @@ MonoBehaviour:
     amount: 2
   - commandType: 6
     amount: 1
+  levelDialog: {fileID: 11400000, guid: afde195d824a3e44e8cb3ec5f83bfd25, type: 2}
   levelTiles:
   - T
   - T
@@ -129,3 +141,4 @@ MonoBehaviour:
   - 
   - 
   levelObjective: 0
+  turnLimit: 100

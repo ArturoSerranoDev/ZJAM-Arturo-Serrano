@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771fdc36635aafc40b3b852fc4dda247, type: 3}
+  m_Name: Level3_Dialog
+  m_EditorClassIdentifier: 
+  levelDialog:
+  - speaker: 0
+    Text: test 1
+    dialogImage: {fileID: 0}
+  - speaker: 0
+    Text: test 1
+    dialogImage: {fileID: 0}
+  - speaker: 1
+    Text: test 3
+    dialogImage: {fileID: 0}
+  - speaker: 1
+    Text: test 4
+    dialogImage: {fileID: 0}
+  - speaker: 0
+    Text: YES
+    dialogImage: {fileID: 0}
+  - speaker: 1
+    Text: YES
+    dialogImage: {fileID: 0}

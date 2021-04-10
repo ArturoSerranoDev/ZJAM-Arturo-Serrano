@@ -9,8 +9,11 @@ public class PlayerController : MonoBehaviour
     public TweenAction moveTween;
     public TweenAction rotateTween;
     public TweenAction useTween;
+    public float animSpeed = 1;
     public TweenAction finishTween;
 
+    public bool isInEvac;
+    public bool isDestroyed;
 
     public IEnumerator ExecuteCommand(CommandView commandView)
     {
@@ -26,7 +29,7 @@ public class PlayerController : MonoBehaviour
                 // if not, play stuck anim
                 if (!IsNextTileValidMove(commandView.commandType))
                 {
-                    tweenAction = transform.DOShakePosition(0.5f);
+                    tweenAction = transform.DOShakePosition(0.5f * animSpeed);
 
                     yield return tweenAction.WaitForCompletion();
                     break;
@@ -34,14 +37,14 @@ public class PlayerController : MonoBehaviour
 
                 // Else move
                 Move moveCommand = command as Move;
-                tweenAction = transform.DOMove(transform.position + (moveCommand.dir * transform.forward), 0.5f);
+                tweenAction = transform.DOMove(transform.position + (moveCommand.dir * transform.forward), 0.5f * animSpeed);
 
                 yield return tweenAction.WaitForCompletion();
                 break;
             case CommandType.RotateRigth:
             case CommandType.RotateLeft:
                 Rotate rotateCommand = command as Rotate;
-                tweenAction = transform.DORotate(transform.eulerAngles + new Vector3(0, 90 * rotateCommand.rotDir, 0), 0.5f);
+                tweenAction = transform.DORotate(transform.eulerAngles + new Vector3(0, 90 * rotateCommand.rotDir, 0), 0.5f * animSpeed);
 
                 yield return tweenAction.WaitForCompletion();
                 break;
@@ -70,5 +73,23 @@ public class PlayerController : MonoBehaviour
             }
 
         return true;
+    }
+
+    public Vector3 GetPlayerPosByRaycast()
+    {
+        Vector3 pos = Vector3.zero;
+
+        RaycastHit hit;
+        int layerMask = 1 << 8;
+        layerMask = ~layerMask;
+
+        if (Physics.Raycast(transform.position, -transform.up, out hit, 1f, layerMask))
+            if (hit.collider != null)
+            {
+                pos = hit.collider.transform.position;
+            }
+
+
+        return pos;
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
@@ -13,11 +14,13 @@ public class UIController : MonoBehaviour
     [SerializeField] RectTransform PauseButton;
     [SerializeField] RectTransform RestartButton;
 
+    public Image LetsGoImage;
+
 
     [SerializeField] RectTransform FadeBlackTransition;
+    [SerializeField] Image pauseOverlay;
 
     //[Header("Pause Panel")]
-    //[SerializeField] GameObject pausePanel;
     //[SerializeField] Text pauseHighScoreText;
     //[SerializeField] Text pauseScoreText;
 
@@ -46,13 +49,53 @@ public class UIController : MonoBehaviour
     public void OnEnable()
     {
         //LevelController.Instance.onGameStart += OnGameStart;
-        //LevelController.Instance.onGamePaused += OnGameStart;
+        LevelController.Instance.onGamePaused += OnGamePaused;
         //LevelController.Instance.onGameWon += OnGameStart;
         //LevelController.Instance.onGameLost += OnGameStart;
+        LevelController.Instance.onLevelLoaded += FadeInPauseMenu;
         LevelController.Instance.onTurnEnded += OnTurnEnded;
+
+        LevelController.Instance.dialogController.onDialogCompleted += FadeOutPauseMenu;
 
         StartCoroutine(FadeFromBlack());
 
+    }
+
+    void OnGamePaused(bool isPaused)
+    {
+        pauseOverlay.gameObject.SetActive(isPaused);
+    }
+
+    public IEnumerator FadeFromBlack()
+    {
+        FadeBlackTransition.gameObject.SetActive(true);
+
+        Tween fadeTween = FadeBlackTransition.DOScale(Vector3.zero, 1.5f).SetEase(Ease.InOutSine).From(1);
+
+        yield return fadeTween.WaitForCompletion();
+
+        StartCoroutine(LevelController.Instance.LoadLevelCoroutine());
+
+    }
+
+    public IEnumerator StartAfterDialogCoroutine()
+    {
+        // Go! SFX and UI
+        LetsGoImage.gameObject.SetActive(true);
+        LetsGoImage.DOFade(1, 0.5f).From(0);
+
+        Tween playTween = LetsGoImage.DOFade(0, 0.5f).From(1).SetDelay(1f);
+
+        yield return playTween.WaitForCompletion();
+    }
+
+    void FadeInPauseMenu()
+    {
+        pauseOverlay.gameObject.SetActive(true);
+    }
+    void FadeOutPauseMenu()
+    {
+        pauseOverlay.gameObject.SetActive(false);
     }
 
     public void OnTurnEnded(int turn)
@@ -161,14 +204,7 @@ public class UIController : MonoBehaviour
         yield return playTween.WaitForCompletion();
     }
 
-    public IEnumerator FadeFromBlack()
-    {
-        FadeBlackTransition.gameObject.SetActive(true);
-
-        Tween fadeTween = FadeBlackTransition.DOScale(Vector3.zero, 1.5f).SetEase(Ease.InOutSine).From(1);
-
-        yield return fadeTween.WaitForCompletion();
-    }
+  
 
     public IEnumerator FadeToBlack()
     {

@@ -9,11 +9,18 @@ public class LevelController : UnitySingletonPersistent<LevelController>
     public LevelBuilder levelBuilder;
     public CommandsController commandsController;
     public UIController uiController;
+    public DialogController dialogController;
+
     public ChapterConfig chapterConfig;
+    public LevelData levelData;
 
     public List<CommandView> commandsOrdered = new List<CommandView>();
+    public List<EnemyView> enemiesInLevel = new List<EnemyView>();
+    //public List<EnemyView> buildingsView = new List<EnemyView>();
 
     // EVENTS
+    public delegate void OnLevelLoaded();
+    public event OnLevelLoaded onLevelLoaded;
     public delegate void OnGameStart();
     public event OnGameStart onGameStart;
     public delegate void OnTurnEnded(int turn);
@@ -31,23 +38,56 @@ public class LevelController : UnitySingletonPersistent<LevelController>
     PlayerController playerController;
     bool isPaused;
 
+    ObjectiveType levelObjective = ObjectiveType.Escape;
+    int levelTurnLimit = 100;
+    Coroutine playTurnCoroutine;
+
     // Start is called before the first frame update
     void Start()
     {
         LoadLevel();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Reset()
     {
-        
+        currentTurn = 0;
+        isPaused = false;
+        levelObjective = ObjectiveType.Escape;
+        levelTurnLimit = 100;
+
+        commandsOrdered.Clear();
+        enemiesInLevel.Clear();
+    }
+
+    public void ResetInGame()
+    {
+        // Stop Coroutine
+        if (playTurnCoroutine != null)
+        {
+            StopCoroutine(playTurnCoroutine);
+        }
+
+        // Reset Player pos and status
+
+        // Reset enemies pos and status
+
+        // Reset moved/Destroyed buildings
+
+        currentTurn = 0;
+        isPaused = false;
     }
 
     public void LoadLevel()
     {
-        LevelData levelData = chapterConfig.levels[currentLevel];
+        levelData = chapterConfig.levels[currentLevel];
+
+        dialogController.dialogData = levelData.levelDialog;
+        levelObjective = levelData.levelObjective;
+        levelTurnLimit = levelData.turnLimit;
 
         levelBuilder.BuildLevel(levelData);
+
+        enemiesInLevel = levelBuilder.enemiesInLevel;
         playerController = levelBuilder.player.GetComponent<PlayerController>();
 
     }
@@ -56,7 +96,7 @@ public class LevelController : UnitySingletonPersistent<LevelController>
     {
         yield return StartCoroutine(levelBuilder.LoadLevelCoroutine());
 
-        onGameStart?.Invoke();
+        onLevelLoaded?.Invoke();
     }
 
     public void PlayButtonPressed()
@@ -87,7 +127,7 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
 
         // Start Play Coroutine
-        StartCoroutine(PlayTurnCoroutine());
+        playTurnCoroutine = StartCoroutine(PlayTurnCoroutine());
     }
 
     List<CommandView> GetCommandsOrderedByIndex()
@@ -106,10 +146,38 @@ public class LevelController : UnitySingletonPersistent<LevelController>
         yield return StartCoroutine(playerController.ExecuteCommand(commandsOrdered[currentTurn]));
 
         // yield all enemies movement
+        foreach (EnemyView enemyView in enemiesInLevel)
+        {
+            yield return StartCoroutine(enemyView.ExecuteCommand());
+
+        }
 
         // yield any special movement
 
         // Check Win/Lose Condition
+        bool isWon = CheckWinCondition();
+
+        if (isWon)
+        {
+            // Show win panel
+
+            // Star hiding elements of scene
+
+            onGameWon?.Invoke();
+            yield break;
+        }
+
+        bool isLost = CheckLoseCondition();
+
+        if (isLost)
+        {
+            // Show lose panel
+
+            // Star hiding elements of scene
+
+            onGameLost?.Invoke();
+            yield break;
+        }
 
         // Add one to turn and tick UI
         currentTurn += 1;
@@ -123,11 +191,38 @@ public class LevelController : UnitySingletonPersistent<LevelController>
         yield return new WaitForEndOfFrame();
     }
 
+    bool CheckLoseCondition()
+    {
+        return playerController.isDestroyed;
+    }
+
+    bool CheckWinCondition()
+    {
+        switch (levelObjective)
+        {
+            case ObjectiveType.Escape:
+
+                // Check if player is in evac
+                return playerController.isInEvac;
+            case ObjectiveType.Kill:
+
+                // Check if all enemies are dead
+                return enemiesInLevel.Count == 0;
+            case ObjectiveType.Survive:
+
+                // Check if turn is over and player is alive
+                return !playerController.isDestroyed && currentTurn >= levelTurnLimit;
+        }
+
+        return false;
+    }
+
     public void PauseGame()
     {
         isPaused = !isPaused;
 
         Time.timeScale = isPaused ? 0f : 1f;
+
         onGamePaused?.Invoke(isPaused);
 
     }

@@ -12,9 +12,10 @@ public class LevelBuilder : MonoBehaviour
     public GameObject player;
 
     public List<GameObject> tilesInLevel = new List<GameObject>();
-    public List<GameObject> enemiesInLevel = new List<GameObject>();
+    public List<EnemyView> enemiesInLevel = new List<EnemyView>();
 
     public int size = 10;
+    public float turnSpeed = 0.25f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,8 @@ public class LevelBuilder : MonoBehaviour
             for (int j = 0; j < size; j++)
             {
                 GameObject newTile = Instantiate(floorPrefab);
-                newTile.transform.position = new Vector3(i - 4, -1, j - 4);
+                newTile.transform.position = new Vector3(i, -1, j);
+                newTile.SetActive(false);
             }
         }
     }
@@ -49,8 +51,11 @@ public class LevelBuilder : MonoBehaviour
     void SpawnPlayer(LevelData levelData)
     {
         player = PoolManager.Instance.Spawn(playerPrefab, Vector3.zero, Quaternion.identity);
+        player.GetComponent<PlayerController>().animSpeed = turnSpeed;
 
         player.transform.position = levelData.playerStartingPos;
+
+        player.gameObject.SetActive(false);
 
         Debug.Log("SpawnPlayer");
 
@@ -58,6 +63,21 @@ public class LevelBuilder : MonoBehaviour
 
     void SpawnEnemies(LevelData levelData)
     {
+        foreach (EnemyData enemyData in levelData.enemiesData)
+        {
+            GameObject newEnemy = PoolManager.Instance.Spawn(enemyData.enemyPrefab, Vector3.zero, Quaternion.identity);
+
+            newEnemy.transform.position = new Vector3(enemyData.enemyPos.x,0, enemyData.enemyPos.y);
+            EnemyView enemyView = newEnemy.GetComponent<EnemyView>();
+            enemyView.animSpeed = turnSpeed;
+
+            enemyView.enemyLoopType = enemyData.commandLoopType;
+            enemyView.enemyCommands = enemyData.enemyCommands;
+
+            enemiesInLevel.Add(enemyView);
+
+        }
+
         Debug.Log("SpawnEnemies");
     }
 
@@ -81,8 +101,9 @@ public class LevelBuilder : MonoBehaviour
                 {
                     case "T":
                         spawnedTile = PoolManager.Instance.Spawn(floorPrefab, Vector3.zero, Quaternion.identity);
-                        spawnedTile.transform.position = new Vector3(i - 4, 0, j - 4);
+                        spawnedTile.transform.position = new Vector3(i, 0, j);
                         tilesInLevel.Add(spawnedTile);
+                        spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
 
                         break;
 
@@ -102,10 +123,12 @@ public class LevelBuilder : MonoBehaviour
     {
         // yield all tiles spawn
         //TODO: SPAWN FROM CENTER IN FLOWER PATTERN
+
         foreach (GameObject tile in tilesInLevel)
         {
             yield return StartCoroutine(tile.GetComponent<TweenAction>().ExecuteTween());
         }
+        player.gameObject.SetActive(true);
 
         // yield all buildings spawn
 
