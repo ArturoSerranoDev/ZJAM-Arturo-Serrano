@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class UIMenuController : MonoBehaviour
 {
@@ -16,8 +17,12 @@ public class UIMenuController : MonoBehaviour
     public TextMeshProUGUI creditsText;
     public TextMeshProUGUI creditsMadeByText;
 
+    public GameObject newGameText;
+    public GameObject continueGameText;
+
     public RectTransform fadeBlackRect;
 
+    public List<Button> levelsButton = new List<Button>();
 
     bool tweeningCredits;
 

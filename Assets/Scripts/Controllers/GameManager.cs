@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class GameManager : UnitySingletonPersistent<GameManager>
 {
@@ -10,10 +11,46 @@ public class GameManager : UnitySingletonPersistent<GameManager>
     [SerializeField] private string levelScene;
     [SerializeField] private string homeScene;
 
+    string currentScene = "MenuScene";
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         // TODO: Check playerprefs to get last level, unlockables and newgameContinue text
+
+
+        if (currentScene == "MenuScene")
+            CheckPlayerCompletion();
+    }
+
+    public void CheckPlayerCompletion()
+    {
+
+        Debug.Log("CheckPlayerCOmpletion");
+
+        if (!PlayerPrefs.HasKey("LevelsUnlocked"))
+        {
+            UIMenuController.newGameText.SetActive(true);
+            UIMenuController.continueGameText.SetActive(false);
+
+            for (int i = 0; i < UIMenuController.levelsButton.Count; i++)
+            {
+                Button buttonLevel = UIMenuController.levelsButton[i];
+                buttonLevel.enabled = false;
+            }
+        }
+        else
+        {
+            int lastChapterUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
+            UIMenuController.newGameText.SetActive(false);
+            UIMenuController.continueGameText.SetActive(true);
+
+            for (int i = 0; i < UIMenuController.levelsButton.Count; i++)
+            {
+                Button buttonLevel = UIMenuController.levelsButton[i];
+                buttonLevel.enabled = i > lastChapterUnlocked ? false : true;
+            }
+        }
     }
 
     public void LoadLastChapter()
@@ -29,7 +66,9 @@ public class GameManager : UnitySingletonPersistent<GameManager>
 
     public void GoToHomeMenu()
     {
-        StartCoroutine(LoadScene(homeScene));
+        currentScene = "MenuScene";
+
+        SceneManager.LoadScene(homeScene);
     }
 
     private IEnumerator LoadScene(string sceneName)
@@ -39,7 +78,7 @@ public class GameManager : UnitySingletonPersistent<GameManager>
         // Fade to black
         yield return StartCoroutine(UIMenuController.FadeToBlack());
 
-
+        currentScene = "LevelScene";
         SceneManager.LoadScene(sceneName);
     }
 

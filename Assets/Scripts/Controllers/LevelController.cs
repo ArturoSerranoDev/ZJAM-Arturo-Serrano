@@ -31,6 +31,8 @@ public class LevelController : UnitySingletonPersistent<LevelController>
     public event OnGameWon onGameWon;
     public delegate void OnGameLost();
     public event OnGameLost onGameLost;
+    public delegate void OnLastTurn();
+    public event OnLastTurn onLastTurn;
 
     public int currentLevel = 0;
     public int currentTurn = 0;
@@ -75,6 +77,11 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
         currentTurn = 0;
         isPaused = false;
+    }
+
+    public void LoadNextLevel()
+    {
+
     }
 
     public void LoadLevel()
@@ -163,6 +170,9 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
             // Star hiding elements of scene
 
+            // Check if should save last chapter unlocked
+            CheckSavingLastChapter();
+
             onGameWon?.Invoke();
             yield break;
         }
@@ -186,9 +196,26 @@ public class LevelController : UnitySingletonPersistent<LevelController>
         // Next One
         if (currentTurn < commandsOrdered.Count)
             StartCoroutine(PlayTurnCoroutine());
+        else
+        {
+            //Last command, lose, force to reset
+            onLastTurn?.Invoke();
+        }
 
         Debug.Log("Turn COroutine, turn " + currentTurn);
         yield return new WaitForEndOfFrame();
+    }
+
+    void CheckSavingLastChapter()
+    {
+        int lastChapterUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
+
+        if (lastChapterUnlocked >= currentLevel)
+            return;
+
+        PlayerPrefs.SetInt("LevelsUnlocked", currentLevel);
+
+        PlayerPrefs.Save();
     }
 
     bool CheckLoseCondition()
@@ -225,5 +252,33 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
         onGamePaused?.Invoke(isPaused);
 
+    }
+
+    public void ChangeTurnSpeed (float amount)
+    {
+        levelBuilder.turnSpeed = amount;
+        playerController.animSpeed = amount;
+
+        // yield all enemies movement
+        foreach (EnemyView enemyView in enemiesInLevel)
+        {
+            enemyView.animSpeed = amount;
+
+        }
+    }
+
+    public void GoToMainMenu()
+    {
+        StartCoroutine(GoToMainMenuCoroutine());
+    }
+
+    private IEnumerator GoToMainMenuCoroutine()
+    {
+        Debug.Log("Loading game!");
+
+        // Fade to black
+        yield return StartCoroutine(uiController.FadeToBlack());
+
+        GameManager.Instance.GoToHomeMenu();
     }
 }

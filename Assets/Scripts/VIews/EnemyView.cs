@@ -28,6 +28,15 @@ public class EnemyView : MonoBehaviour
 
     public IEnumerator ExecuteCommand()
     {
+        // If shooter, check if player is in range and do animation
+
+        // set player to destroyed
+
+        // break
+
+
+
+
         Command turnCommand = enemyCommands[turn];
 
         Tween tweenAction;

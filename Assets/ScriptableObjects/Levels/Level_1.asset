@@ -22,13 +22,14 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
     - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
     - {fileID: 11400000, guid: 6f00a846037584d44b3dcc12a347bb1c, type: 2}
-    - {fileID: 11400000, guid: 6f00a846037584d44b3dcc12a347bb1c, type: 2}
+    commandLoopType: 1
   - enemyPrefab: {fileID: 4451251609196532674, guid: ac333db5093235a45be470df0253a41d,
       type: 3}
     enemyPos: {x: 8, y: 8}
     enemyCommands:
     - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
     - {fileID: 11400000, guid: 6f00a846037584d44b3dcc12a347bb1c, type: 2}
+    commandLoopType: 0
   commandData:
   - commandType: 0
     amount: 3

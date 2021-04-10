@@ -7840,7 +7840,10 @@ MonoBehaviour:
   artGalleryCanvasGroup: {fileID: 186841229}
   creditsText: {fileID: 929427215}
   creditsMadeByText: {fileID: 1219741216}
+  newGameText: {fileID: 1317847095}
+  continueGameText: {fileID: 892262156}
   fadeBlackRect: {fileID: 968003933}
+  levelsButton: []
 --- !u!4 &1798906109
 Transform:
   m_ObjectHideFlags: 0

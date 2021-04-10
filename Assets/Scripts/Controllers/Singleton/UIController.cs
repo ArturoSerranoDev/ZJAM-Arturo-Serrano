@@ -20,6 +20,17 @@ public class UIController : MonoBehaviour
     [SerializeField] RectTransform FadeBlackTransition;
     [SerializeField] Image pauseOverlay;
 
+    [Header("Win Lose")]
+
+    public GameObject winLosePanel;
+    public GameObject winLoseMenu;
+    public GameObject goToNextLevelButtonGO;
+    public GameObject restartLevelButtonGO;
+
+    public Image winLoseImage;
+    public Sprite winSprite;
+    public Sprite loseSprite;
+
     //[Header("Pause Panel")]
     //[SerializeField] Text pauseHighScoreText;
     //[SerializeField] Text pauseScoreText;
@@ -48,10 +59,8 @@ public class UIController : MonoBehaviour
 
     public void OnEnable()
     {
-        //LevelController.Instance.onGameStart += OnGameStart;
         LevelController.Instance.onGamePaused += OnGamePaused;
-        //LevelController.Instance.onGameWon += OnGameStart;
-        //LevelController.Instance.onGameLost += OnGameStart;
+
         LevelController.Instance.onLevelLoaded += FadeInPauseMenu;
         LevelController.Instance.onTurnEnded += OnTurnEnded;
 
@@ -59,6 +68,16 @@ public class UIController : MonoBehaviour
 
         StartCoroutine(FadeFromBlack());
 
+    }
+
+    public void OnDisable()
+    {
+        //LevelController.Instance.onGamePaused -= OnGamePaused;
+
+        //LevelController.Instance.onLevelLoaded -= FadeInPauseMenu;
+        //LevelController.Instance.onTurnEnded -= OnTurnEnded;
+
+        //LevelController.Instance.dialogController.onDialogCompleted -= FadeOutPauseMenu;
     }
 
     void OnGamePaused(bool isPaused)
@@ -103,99 +122,34 @@ public class UIController : MonoBehaviour
         turnText.text = turn.ToString();
     }
 
-    //public void OnDisable()
-    //{
-    //    LevelManager.onGameWon -= OnGameWon;
-    //    LevelManager.onGameLost -= OnGameLost;
-    //    LevelManager.onGamePaused -= PauseGame;
-    //    LevelManager.onHighScoreReached -= OnHighScoreReached;
-    //    LevelManager.onCloseToHighScoreReached -= OnCloseHighScoreReached;
-    //}
 
-    //void PauseGame(bool isPaused)
-    //{
-    //    if (winLosePanel.activeInHierarchy)
-    //        return;
+    void OnGameWon()
+    {
+        ShowEndLevelScreen(isVictory: true);
+    }
 
-    //    pausePanel.SetActive(isPaused);
-    //    pauseHighScoreText.text = "High Score: " + LevelManager.HighScore;
-    //    pauseScoreText.text = "Your Score: " + LevelManager.Score;
-    //}
+    void OnGameLost()
+    {
+        ShowEndLevelScreen(isVictory: false);
+    }
 
-    //void OnGameWon()
-    //{
-    //    ShowEndLevelScreen(isVictory: true);
-    //}
+    void ShowEndLevelScreen(bool isVictory)
+    {
+        winLosePanel.SetActive(true);
 
-    //void OnGameLost()
-    //{
-    //    playScoreText.text = string.Empty;
-    //    ShowEndLevelScreen(isVictory: false);
-    //}
+        goToNextLevelButtonGO.SetActive(isVictory);
+        restartLevelButtonGO.SetActive(!isVictory);
 
-    //public void OnPlayerHit(int lives)
-    //{
-    //    livesImage[lives].SetActive(false);
-    //}
+        winLoseImage.sprite = isVictory ? winSprite : loseSprite;
 
-    //void OnHighScoreReached(int highScore)
-    //{
-    //    StartCoroutine(PlayHighScoreAnimation());
-    //}
 
-    //void OnCloseHighScoreReached()
-    //{
-    //    StartCoroutine(PlayHighScoreCloseAnimation());
-    //}
+        if (isVictory)
+            winLosePanel.transform.DOMoveY(winLosePanel.transform.position.y, 1f).From(winLosePanel.transform.position.y - 1000).SetEase(Ease.InOutSine);
+        else
+            winLosePanel.transform.DOMoveY((winLosePanel.transform.position.y - 1000), 1f).From(winLosePanel.transform.position.y).SetEase(Ease.InOutSine);
+    }
 
-    //IEnumerator PlayHighScoreCloseAnimation()
-    //{
-    //    closeHighScoreGO.SetActive(true);
-    //    yield return new WaitForSeconds(2f);
-    //    closeHighScoreGO.SetActive(false);
-    //}
 
-    //IEnumerator PlayHighScoreAnimation()
-    //{
-    //    newHighScoreTextGO.SetActive(true);
-    //    yield return new WaitForSeconds(2f);
-    //    newHighScoreTextGO.SetActive(false);
-    //}
-
-    //void ShowEndLevelScreen(bool isVictory)
-    //{
-    //    winLosePanel.SetActive(true);
-
-    //    goToNextLevelButtonGO.SetActive(isVictory);
-    //    restartLevelButtonGO.SetActive(!isVictory);
-
-    //    endHighScoreText.text = "High Score: " + LevelManager.HighScore;
-    //    endScoreText.text = "Your Score: " + LevelManager.Score;
-    //    endTitleText.text = isVictory ? "VICTORY" : "DEFEAT";
-    //}
-
-    //public void UpdateScore(int score)
-    //{
-    //    playScoreText.text = score.ToString();
-    //}
-
-    //public void ShowEndChapterScreen()
-    //{
-    //    endTitleText.text = "Congratulations, you completed this chapter!";
-
-    //    winLosePanel.SetActive(true);
-    //    goToNextLevelButtonGO.SetActive(false);
-    //    restartLevelButtonGO.SetActive(false);
-    //}
-
-    //public void OnGameStart()
-    //{
-    //    pausePanel.SetActive(false);
-    //    winLosePanel.SetActive(false);
-    //    newHighScoreTextGO.SetActive(false);
-
-    //    playScoreText.text = string.Empty;
-    //}
 
     public IEnumerator PlayPressedCoroutine()
     {
