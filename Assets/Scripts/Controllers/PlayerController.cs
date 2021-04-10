@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject playerCenter;
     public TweenAction spawnTween;
     public TweenAction moveTween;
     public TweenAction rotateTween;
@@ -59,7 +60,8 @@ public class PlayerController : MonoBehaviour
         int dir = command == CommandType.MoveUp ? 1 : -1;
         layerMask = ~layerMask;
 
-        if (Physics.Raycast(transform.position, transform.forward * dir, out hit, 1f, layerMask))
+        Debug.DrawRay(playerCenter.transform.position, transform.forward * dir, Color.red, 1f);
+        if (Physics.Raycast(playerCenter.transform.position, transform.forward * dir, out hit, 1f, layerMask))
             if (hit.collider != null)
             {
                 Debug.Log("IsNextTileValidMove false");
@@ -83,7 +85,7 @@ public class PlayerController : MonoBehaviour
         int layerMask = 1 << 8;
         layerMask = ~layerMask;
 
-        if (Physics.Raycast(transform.position, -transform.up, out hit, 1f, layerMask))
+        if (Physics.Raycast(playerCenter.transform.position, -transform.up, out hit, 1f, layerMask))
             if (hit.collider != null)
             {
                 pos = hit.collider.transform.position;
@@ -91,5 +93,38 @@ public class PlayerController : MonoBehaviour
 
 
         return pos;
+    }
+
+    public bool IsInEvac()
+    {
+        Vector3 pos = Vector3.zero;
+
+        RaycastHit hit;
+        int layerMask = 1 << 8;
+        layerMask = ~layerMask;
+
+        bool isInEvac = false;
+        if (Physics.Raycast(playerCenter.transform.position, -transform.up, out hit, 1f, layerMask))
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<EvacTile>())
+                    isInEvac = true;
+            }
+
+        Debug.Log(hit.collider.name);
+        Debug.Log("IsInEvac" + isInEvac);
+        return isInEvac;
+    }
+
+    public void Destroy()
+    {
+        // Destroy anim
+
+        isDestroyed = true;
+    }
+
+    public void Reset()
+    {
+        isDestroyed = false;
     }
 }

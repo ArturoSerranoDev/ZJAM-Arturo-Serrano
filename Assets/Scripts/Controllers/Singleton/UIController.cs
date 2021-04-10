@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     [Header("Game Panel")]
+    [SerializeField] RectTransform InputRect;
     [SerializeField] TextMeshProUGUI turnText;
     [SerializeField] RectTransform PlayButton;
     [SerializeField] RectTransform PauseButton;
@@ -30,6 +31,9 @@ public class UIController : MonoBehaviour
     public Image winLoseImage;
     public Sprite winSprite;
     public Sprite loseSprite;
+
+    public Color winColor;
+    public Color loseColor;
 
     //[Header("Pause Panel")]
     //[SerializeField] Text pauseHighScoreText;
@@ -59,6 +63,8 @@ public class UIController : MonoBehaviour
 
     public void OnEnable()
     {
+        LevelController.Instance.onGameWon += OnGameWon;
+        LevelController.Instance.onGameLost += OnGameLost;
         LevelController.Instance.onGamePaused += OnGamePaused;
 
         LevelController.Instance.onLevelLoaded += FadeInPauseMenu;
@@ -93,17 +99,25 @@ public class UIController : MonoBehaviour
 
         yield return fadeTween.WaitForCompletion();
 
+       
         StartCoroutine(LevelController.Instance.LoadLevelCoroutine());
 
     }
 
     public IEnumerator StartAfterDialogCoroutine()
     {
+        InputRect.gameObject.SetActive(true);
+        InputRect.transform.DOMoveX(InputRect.transform.position.x, 1f).From(InputRect.transform.position.x - 600).SetEase(Ease.InOutSine);
+
+        PlayButton.gameObject.SetActive(true);
+        PlayButton.transform.DOMoveY(PlayButton.transform.position.y, 1f).From(PlayButton.transform.position.y + 300).SetEase(Ease.InOutSine);
+
+
         // Go! SFX and UI
         LetsGoImage.gameObject.SetActive(true);
-        LetsGoImage.DOFade(1, 0.5f).From(0);
+        LetsGoImage.DOFade(1, 0.25f).From(0);
 
-        Tween playTween = LetsGoImage.DOFade(0, 0.5f).From(1).SetDelay(1f);
+        Tween playTween = LetsGoImage.DOFade(0, 0.25f).From(1).SetDelay(1f);
 
         yield return playTween.WaitForCompletion();
     }
@@ -114,6 +128,8 @@ public class UIController : MonoBehaviour
     }
     void FadeOutPauseMenu()
     {
+        StartCoroutine(StartAfterDialogCoroutine());
+
         pauseOverlay.gameObject.SetActive(false);
     }
 
@@ -126,11 +142,14 @@ public class UIController : MonoBehaviour
     void OnGameWon()
     {
         ShowEndLevelScreen(isVictory: true);
+        Debug.Log("UI OngameWon");
     }
 
     void OnGameLost()
     {
         ShowEndLevelScreen(isVictory: false);
+        Debug.Log("UI Ongamelost");
+
     }
 
     void ShowEndLevelScreen(bool isVictory)
@@ -142,6 +161,7 @@ public class UIController : MonoBehaviour
 
         winLoseImage.sprite = isVictory ? winSprite : loseSprite;
 
+        winLoseMenu.GetComponent<Image>().color = isVictory ? winColor : loseColor;
 
         if (isVictory)
             winLosePanel.transform.DOMoveY(winLosePanel.transform.position.y, 1f).From(winLosePanel.transform.position.y - 1000).SetEase(Ease.InOutSine);
@@ -153,7 +173,12 @@ public class UIController : MonoBehaviour
 
     public IEnumerator PlayPressedCoroutine()
     {
-        Tween playTween = PlayButton.DOMoveY(PlayButton.position.y + 200, 0.5f);
+        Tween playTween = PlayButton.transform.DOMoveY(PlayButton.transform.position.y + 300, 0.5f);
+        RestartButton.gameObject.SetActive(true);
+        PauseButton.gameObject.SetActive(true);
+
+        RestartButton.transform.DOMoveY(RestartButton.transform.position.y, 0.5f).From(RestartButton.transform.position.y + 300).SetEase(Ease.InOutSine);
+        PauseButton.transform.DOMoveY(PauseButton.transform.position.y, 0.5f).From(PauseButton.transform.position.y + 300).SetEase(Ease.InOutSine);
 
         yield return playTween.WaitForCompletion();
     }

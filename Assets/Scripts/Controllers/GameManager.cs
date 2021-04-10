@@ -13,7 +13,7 @@ public class GameManager : UnitySingletonPersistent<GameManager>
 
     string currentScene = "MenuScene";
 
-    protected override void Awake()
+    protected void OnEnable()
     {
         base.Awake();
         // TODO: Check playerprefs to get last level, unlockables and newgameContinue text
@@ -30,6 +30,9 @@ public class GameManager : UnitySingletonPersistent<GameManager>
 
         if (!PlayerPrefs.HasKey("LevelsUnlocked"))
         {
+            UIMenuController.StartingPanelCanvasGroup.gameObject.SetActive(true);
+            UIMenuController.mainMenuPanelCanvasGroup.gameObject.SetActive(false);
+
             UIMenuController.newGameText.SetActive(true);
             UIMenuController.continueGameText.SetActive(false);
 
@@ -41,6 +44,10 @@ public class GameManager : UnitySingletonPersistent<GameManager>
         }
         else
         {
+            UIMenuController.StartingPanelCanvasGroup.gameObject.SetActive(false);
+            UIMenuController.mainMenuPanelCanvasGroup.gameObject.SetActive(true);
+
+
             int lastChapterUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
             UIMenuController.newGameText.SetActive(false);
             UIMenuController.continueGameText.SetActive(true);

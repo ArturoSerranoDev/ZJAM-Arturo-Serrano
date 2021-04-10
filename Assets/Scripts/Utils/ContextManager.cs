@@ -5,4 +5,6 @@ using UnityEngine;
 public class ContextManager : UnitySingletonPersistent<ContextManager>
 {
     public int currentLevel;
+
+    public bool mustFade;
 }

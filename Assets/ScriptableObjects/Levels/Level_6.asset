@@ -10,19 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba78b19af4fb87e48bb22f5b9dc71512, type: 3}
-  m_Name: Level_1
+  m_Name: Level_6
   m_EditorClassIdentifier: 
   levelNumber: 1
-  playerStartingPos: {x: 2.5, y: 0, z: 4.5}
-  enemiesData: []
+  playerStartingPos: {x: -3.5, y: 0, z: 0.5}
+  enemiesData:
+  - enemyPrefab: {fileID: 4451251609196532674, guid: ac333db5093235a45be470df0253a41d,
+      type: 3}
+    enemyPos: {x: 5, y: 5}
+    enemyCommands:
+    - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
+    - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
+    - {fileID: 11400000, guid: 6f00a846037584d44b3dcc12a347bb1c, type: 2}
+    commandLoopType: 1
+  - enemyPrefab: {fileID: 4451251609196532674, guid: ac333db5093235a45be470df0253a41d,
+      type: 3}
+    enemyPos: {x: 8, y: 8}
+    enemyCommands:
+    - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
+    - {fileID: 11400000, guid: 6f00a846037584d44b3dcc12a347bb1c, type: 2}
+    commandLoopType: 0
   commandData:
   - commandType: 0
     amount: 3
-  - commandType: 1
+  - commandType: 2
     amount: 2
   - commandType: 3
     amount: 2
-  - commandType: 2
+  - commandType: 6
     amount: 1
   levelDialog: {fileID: 11400000, guid: afde195d824a3e44e8cb3ec5f83bfd25, type: 2}
   levelTiles:
@@ -31,29 +46,10 @@ MonoBehaviour:
   - T
   - T
   - T
-  - T
-  - T
-  - T
-  - T
-  - T
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   - 
   - T
   - T
   - T
-  - T
   - 
   - 
   - 
@@ -63,7 +59,6 @@ MonoBehaviour:
   - 
   - 
   - 
-  - E
   - 
   - 
   - 
@@ -126,6 +121,26 @@ MonoBehaviour:
   - 
   - 
   - 
-  levelObjective: 1
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  levelObjective: 0
   turnLimit: 100
   evacPos: {x: 0, y: 0, z: 0}

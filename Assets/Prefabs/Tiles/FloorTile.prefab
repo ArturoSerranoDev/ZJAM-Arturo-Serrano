@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8120420183135592798}
   - component: {fileID: 5706900874569488499}
+  - component: {fileID: 3193839656839999761}
   m_Layer: 0
   m_Name: FloorTile
   m_TagString: Untagged
@@ -45,6 +46,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 8591529281291694025}
+--- !u!65 &3193839656839999761
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8120420183135592797}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.2500001, z: 1}
+  m_Center: {x: 0.5, y: -0.125, z: 0.5}
 --- !u!1 &8966929572963710323
 GameObject:
   m_ObjectHideFlags: 0

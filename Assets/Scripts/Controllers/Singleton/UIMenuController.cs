@@ -30,6 +30,18 @@ public class UIMenuController : MonoBehaviour
     {
         fadeBlackRect.gameObject.SetActive(false);
 
+
+        if (ContextManager.Instance.mustFade)
+        {
+            ContextManager.Instance.mustFade = false;
+            StartCoroutine(FadeFromBlack());
+
+        }
+        else
+        {
+            StartingPanelCanvasGroup.DOFade(1, 0.75f).From(0).SetEase(Ease.InOutSine);
+        }
+
     }
 
     public void GoToMainMenu()
@@ -97,11 +109,20 @@ public class UIMenuController : MonoBehaviour
 
     public IEnumerator FadeToBlack()
     {
-        Vector3 endRect = fadeBlackRect.localScale;
         fadeBlackRect.gameObject.SetActive(true);
 
-        Tween fadeTween = fadeBlackRect.DOScale(endRect, 1.5f).From(Vector2.zero).SetEase(Ease.InOutSine);
+        Tween fadeTween = fadeBlackRect.DOScale(1, 1.5f).From(Vector2.zero).SetEase(Ease.InOutSine);
 
         yield return fadeTween.WaitForCompletion();
+    }
+
+    public IEnumerator FadeFromBlack()
+    {
+        fadeBlackRect.gameObject.SetActive(true);
+
+        Tween fadeTween = fadeBlackRect.DOScale(Vector3.zero, 1.5f).SetEase(Ease.InOutSine).From(1);
+
+        yield return fadeTween.WaitForCompletion();
+
     }
 }

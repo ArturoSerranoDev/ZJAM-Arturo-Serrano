@@ -42,6 +42,7 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     ObjectiveType levelObjective = ObjectiveType.Escape;
     int levelTurnLimit = 100;
+    Vector3 levelEvacPos = Vector3.zero;
     Coroutine playTurnCoroutine;
 
     // Start is called before the first frame update
@@ -56,6 +57,7 @@ public class LevelController : UnitySingletonPersistent<LevelController>
         isPaused = false;
         levelObjective = ObjectiveType.Escape;
         levelTurnLimit = 100;
+        levelEvacPos = Vector3.zero;
 
         commandsOrdered.Clear();
         enemiesInLevel.Clear();
@@ -77,6 +79,7 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
         currentTurn = 0;
         isPaused = false;
+        levelEvacPos = Vector3.zero;
     }
 
     public void LoadNextLevel()
@@ -91,6 +94,11 @@ public class LevelController : UnitySingletonPersistent<LevelController>
         dialogController.dialogData = levelData.levelDialog;
         levelObjective = levelData.levelObjective;
         levelTurnLimit = levelData.turnLimit;
+
+        if (levelData.levelObjective == ObjectiveType.Escape)
+        {
+            
+        }
 
         levelBuilder.BuildLevel(levelData);
 
@@ -198,6 +206,8 @@ public class LevelController : UnitySingletonPersistent<LevelController>
             StartCoroutine(PlayTurnCoroutine());
         else
         {
+           
+
             //Last command, lose, force to reset
             onLastTurn?.Invoke();
         }
@@ -208,6 +218,15 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     void CheckSavingLastChapter()
     {
+        Debug.Log("CheckSaving");
+        if (!PlayerPrefs.HasKey("LevelsUnlocked"))
+        {
+            PlayerPrefs.SetInt("LevelsUnlocked", currentLevel);
+            PlayerPrefs.Save();
+            return;
+        }
+
+
         int lastChapterUnlocked = PlayerPrefs.GetInt("LevelsUnlocked", 1);
 
         if (lastChapterUnlocked >= currentLevel)
@@ -230,7 +249,7 @@ public class LevelController : UnitySingletonPersistent<LevelController>
             case ObjectiveType.Escape:
 
                 // Check if player is in evac
-                return playerController.isInEvac;
+                return playerController.IsInEvac();
             case ObjectiveType.Kill:
 
                 // Check if all enemies are dead
@@ -269,6 +288,8 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     public void GoToMainMenu()
     {
+        ContextManager.Instance.mustFade = true;
+
         StartCoroutine(GoToMainMenuCoroutine());
     }
 

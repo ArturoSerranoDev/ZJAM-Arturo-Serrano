@@ -29,8 +29,7 @@ public class LevelBuilder : MonoBehaviour
             for (int j = 0; j < size; j++)
             {
                 GameObject newTile = Instantiate(floorPrefab);
-                newTile.transform.position = new Vector3(i, -1, j);
-                newTile.SetActive(false);
+                newTile.transform.position = new Vector3(i, 0, j);
             }
         }
     }
@@ -51,6 +50,9 @@ public class LevelBuilder : MonoBehaviour
     void SpawnPlayer(LevelData levelData)
     {
         player = PoolManager.Instance.Spawn(playerPrefab, Vector3.zero, Quaternion.identity);
+
+        player.GetComponent<PlayerController>().Reset();
+
         player.GetComponent<PlayerController>().animSpeed = turnSpeed;
 
         player.transform.position = levelData.playerStartingPos;
@@ -69,6 +71,8 @@ public class LevelBuilder : MonoBehaviour
 
             newEnemy.transform.position = new Vector3(enemyData.enemyPos.x,0, enemyData.enemyPos.y);
             EnemyView enemyView = newEnemy.GetComponent<EnemyView>();
+
+            enemyView.Reset();
             enemyView.animSpeed = turnSpeed;
 
             enemyView.enemyLoopType = enemyData.commandLoopType;
@@ -106,6 +110,15 @@ public class LevelBuilder : MonoBehaviour
                         spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
 
                         break;
+                    case "E":
+                        spawnedTile = PoolManager.Instance.Spawn(floorPrefab, Vector3.zero, Quaternion.identity);
+                        spawnedTile.transform.position = new Vector3(i, 0, j);
+                        tilesInLevel.Add(spawnedTile);
+                        spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
+
+                        spawnedTile.AddComponent<EvacTile>();
+
+                        break;
 
                     default:
                         break;
@@ -128,6 +141,7 @@ public class LevelBuilder : MonoBehaviour
         {
             yield return StartCoroutine(tile.GetComponent<TweenAction>().ExecuteTween());
         }
+
         player.gameObject.SetActive(true);
 
         // yield all buildings spawn

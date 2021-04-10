@@ -18,6 +18,7 @@ public class LevelData : ScriptableObject
    public List<string> levelTiles;
    public ObjectiveType levelObjective;
    public int turnLimit = 100;
+   public Vector3 evacPos;
 }
 
 [System.Serializable]

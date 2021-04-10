@@ -73,4 +73,15 @@ public class EnemyView : MonoBehaviour
         }
 
     }
+
+    public void Destroy()
+    {
+
+    }
+
+    public void Reset()
+    {
+        turn = 0;
+        enemyCommands.Clear();
+    }
 }
