@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using System;
 
 public class UIMenuController : MonoBehaviour
 {
@@ -15,8 +16,16 @@ public class UIMenuController : MonoBehaviour
     public TextMeshProUGUI creditsText;
     public TextMeshProUGUI creditsMadeByText;
 
+    public RectTransform fadeBlackRect;
+
 
     bool tweeningCredits;
+
+    void Awake()
+    {
+        fadeBlackRect.gameObject.SetActive(false);
+
+    }
 
     public void GoToMainMenu()
     {
@@ -35,6 +44,8 @@ public class UIMenuController : MonoBehaviour
 
         mainMenuPanelCanvasGroup.DOFade(1, 0.25f).From(0).SetDelay(0.25f).SetEase(Ease.InOutSine);
     }
+
+ 
 
     public void GoToMainMenuFromArtGallery()
     {
@@ -77,5 +88,15 @@ public class UIMenuController : MonoBehaviour
 
         creditsText.DOFade(1, 0.25f).SetDelay(0.25f +1f+0.5f);
 
+    }
+
+    public IEnumerator FadeToBlack()
+    {
+        Vector3 endRect = fadeBlackRect.localScale;
+        fadeBlackRect.gameObject.SetActive(true);
+
+        Tween fadeTween = fadeBlackRect.DOScale(endRect, 1.5f).From(Vector2.zero).SetEase(Ease.InOutSine);
+
+        yield return fadeTween.WaitForCompletion();
     }
 }

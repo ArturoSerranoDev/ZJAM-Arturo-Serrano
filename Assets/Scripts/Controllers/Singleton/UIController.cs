@@ -13,6 +13,9 @@ public class UIController : MonoBehaviour
     [SerializeField] RectTransform PauseButton;
     [SerializeField] RectTransform RestartButton;
 
+
+    [SerializeField] RectTransform FadeBlackTransition;
+
     //[Header("Pause Panel")]
     //[SerializeField] GameObject pausePanel;
     //[SerializeField] Text pauseHighScoreText;
@@ -39,6 +42,7 @@ public class UIController : MonoBehaviour
     //    }
     //}
 
+
     public void OnEnable()
     {
         //LevelController.Instance.onGameStart += OnGameStart;
@@ -46,6 +50,8 @@ public class UIController : MonoBehaviour
         //LevelController.Instance.onGameWon += OnGameStart;
         //LevelController.Instance.onGameLost += OnGameStart;
         LevelController.Instance.onTurnEnded += OnTurnEnded;
+
+        StartCoroutine(FadeFromBlack());
 
     }
 
@@ -153,5 +159,23 @@ public class UIController : MonoBehaviour
         Tween playTween = PlayButton.DOMoveY(PlayButton.position.y + 200, 0.5f);
 
         yield return playTween.WaitForCompletion();
+    }
+
+    public IEnumerator FadeFromBlack()
+    {
+        FadeBlackTransition.gameObject.SetActive(true);
+
+        Tween fadeTween = FadeBlackTransition.DOScale(Vector3.zero, 1.5f).SetEase(Ease.InOutSine).From(1);
+
+        yield return fadeTween.WaitForCompletion();
+    }
+
+    public IEnumerator FadeToBlack()
+    {
+        FadeBlackTransition.gameObject.SetActive(true);
+
+        Tween fadeTween = FadeBlackTransition.DOScale(1f, 1.5f).From(Vector2.zero).SetEase(Ease.InOutSine);
+
+        yield return fadeTween.WaitForCompletion();
     }
 }
