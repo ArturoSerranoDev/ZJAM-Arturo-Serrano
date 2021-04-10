@@ -31,47 +31,52 @@ public class CommandsController : MonoBehaviour
         //}
     }
 
-    public void AddCommand(CommandType commandType)
+    public void AddCommand(string commandType)
     {
+        if (commands.Count >= selectedCommandsSlots.Count)
+            return;
+
+
         GameObject newCommand = null;
         switch (commandType)
         {
-            case CommandType.MoveUp:
+            case "MoveUp":
                 newCommand = PoolManager.Instance.Spawn(moveUpCommandPrf,
-                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                    selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
                 break;
-            case CommandType.MoveBack:
+            case "MoveDown":
                 newCommand = PoolManager.Instance.Spawn(moveDownCommandPrf,
-                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                    selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
                 break;
 
-            case CommandType.RotateLeft:
+            case "RotLeft":
                 newCommand = PoolManager.Instance.Spawn(RotateLeftCommandPrf,
-                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                    selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
                 break;
 
-            case CommandType.RotateRigth:
+            case "RotRigth":
                 newCommand = PoolManager.Instance.Spawn(rotateRigthCommandPrf,
-                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                    selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
                 break;
 
-            case CommandType.Use:
+            case "Use":
                 newCommand = PoolManager.Instance.Spawn(useCommandPrf,
-                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                    selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
                 break;
 
-            case CommandType.Pick:
-                newCommand = PoolManager.Instance.Spawn(moveUpCommandPrf,
-                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+            case "Pick":
+                newCommand = PoolManager.Instance.Spawn(pickCommandPrf,
+                    selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
                 break;
 
-                break;
-            case CommandType.Finish:
+            case "Finish":
                 newCommand = PoolManager.Instance.Spawn(finishCommandPrf,
-                    selectedCommandsSlots[selectedCommandsSlots.Count].transform.position, Quaternion.identity, commandsParent.transform);
+                    selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
                 break;
 
         }
+
+        newCommand.GetComponent<RectTransform>().position = selectedCommandsSlots[commands.Count].GetComponent<RectTransform>().position;
 
         commands.Add(newCommand.GetComponent<CommandView>());
     }

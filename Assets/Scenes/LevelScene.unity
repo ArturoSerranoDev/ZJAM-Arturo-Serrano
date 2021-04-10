@@ -1873,7 +1873,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 844069293}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1122818649}
+        m_MethodName: AddCommand
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MoveUp
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &844069293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3481,7 +3492,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1372036884}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1122818649}
+        m_MethodName: AddCommand
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RotRigth
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1372036884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3611,7 +3633,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1396023072}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1122818649}
+        m_MethodName: RemoveLastCommand
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1396023072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3857,7 +3890,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1470354845}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1122818649}
+        m_MethodName: AddCommand
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RotLeft
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1470354845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3975,7 +4019,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1491917636}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1122818649}
+        m_MethodName: AddCommand
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MoveDown
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1491917636
 MonoBehaviour:
   m_ObjectHideFlags: 0
