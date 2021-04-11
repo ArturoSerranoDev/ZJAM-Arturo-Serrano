@@ -103,7 +103,10 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     public void LoadNextLevel()
     {
+        currentLevel++;
+        CheckSavingLastChapter();
 
+        LoadLevel();
     }
 
     public void LoadLevel()
