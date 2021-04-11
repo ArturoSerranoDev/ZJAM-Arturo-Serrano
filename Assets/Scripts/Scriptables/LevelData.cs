@@ -18,7 +18,10 @@ public class LevelData : ScriptableObject
    public List<string> levelTiles;
    public ObjectiveType levelObjective;
    public int turnLimit = 100;
-   public Vector3 evacPos;
+
+    public Texture floorMat;
+    public GameObject tilePrefab;
+    public List<string> cheatCode;
 }
 
 [System.Serializable]

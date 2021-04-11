@@ -4,16 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+
+public enum EnemyType { Melee, Shooter}
+
 public class EnemyView : MonoBehaviour
 {
     public List<Command> enemyCommands = new List<Command>();
 
-    public Vector3 startingPos;
-
     public EnemyLoopType enemyLoopType = EnemyLoopType.Reverse;
+    public EnemyType enemyType = EnemyType.Melee;
     public int turn;
     public float animSpeed;
 
+    public bool isAlive;
     //public Command GetNextCommandAction()
     //{
     //    //if end, reverse commands and execute
@@ -28,6 +31,22 @@ public class EnemyView : MonoBehaviour
 
     public IEnumerator ExecuteCommand()
     {
+        if (!isAlive)
+            yield break;
+
+        bool shouldAttack = CheckAttackPlayer();
+
+        if (shouldAttack)
+        {
+            // attack anim
+
+            // trigger death anim on player
+            
+            // set defeat
+
+            yield break;
+        }
+
         // If shooter, check if player is in range and do animation
 
         // set player to destroyed
@@ -74,14 +93,23 @@ public class EnemyView : MonoBehaviour
 
     }
 
-    public void Destroy()
+    private bool CheckAttackPlayer()
     {
-
+        throw new NotImplementedException();
     }
 
-    public void Reset()
+    public void Destroy()
     {
+        isAlive = false;
+        gameObject.SetActive(false);
+    }
+
+    public void Reset(EnemyData enemyData)
+    {
+        isAlive = true;
         turn = 0;
         enemyCommands.Clear();
+        enemyLoopType = enemyData.commandLoopType;
+        enemyCommands = enemyData.enemyCommands;
     }
 }

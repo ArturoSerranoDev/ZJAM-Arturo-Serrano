@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
                 // if not, play stuck anim
                 if (!IsNextTileValidMove(commandView.commandType))
                 {
-                    tweenAction = transform.DOShakePosition(0.5f * animSpeed);
+                    tweenAction = transform.DOShakePosition(0.5f * animSpeed,0.1f,1,90,false,true);
 
                     yield return tweenAction.WaitForCompletion();
                     break;

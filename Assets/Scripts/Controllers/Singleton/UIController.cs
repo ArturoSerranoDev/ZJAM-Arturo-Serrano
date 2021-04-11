@@ -11,9 +11,9 @@ public class UIController : MonoBehaviour
     [Header("Game Panel")]
     [SerializeField] RectTransform InputRect;
     [SerializeField] TextMeshProUGUI turnText;
-    [SerializeField] RectTransform PlayButton;
-    [SerializeField] RectTransform PauseButton;
-    [SerializeField] RectTransform RestartButton;
+    [SerializeField] CanvasGroup PlayButton;
+    [SerializeField] CanvasGroup PauseButton;
+    [SerializeField] CanvasGroup RestartButton;
 
     public Image LetsGoImage;
 
@@ -23,7 +23,7 @@ public class UIController : MonoBehaviour
 
     [Header("Win Lose")]
 
-    public GameObject winLosePanel;
+    public CanvasGroup winLosePanel;
     public GameObject winLoseMenu;
     public GameObject goToNextLevelButtonGO;
     public GameObject restartLevelButtonGO;
@@ -64,16 +64,26 @@ public class UIController : MonoBehaviour
     public void OnEnable()
     {
         LevelController.Instance.onGameWon += OnGameWon;
+        LevelController.Instance.onReset += OnReset;
         LevelController.Instance.onGameLost += OnGameLost;
         LevelController.Instance.onGamePaused += OnGamePaused;
 
         LevelController.Instance.onLevelLoaded += FadeInPauseMenu;
+        LevelController.Instance.onLastTurn += OnGameLost;
         LevelController.Instance.onTurnEnded += OnTurnEnded;
 
         LevelController.Instance.dialogController.onDialogCompleted += FadeOutPauseMenu;
 
         StartCoroutine(FadeFromBlack());
 
+    }
+
+    private void OnReset()
+    {
+        Tween playTween = PlayButton.DOFade(1, 0.5f);
+
+        RestartButton.DOFade(0, 0.5f);
+        PauseButton.DOFade(0, 0.5f);
     }
 
     public void OnDisable()
@@ -110,7 +120,7 @@ public class UIController : MonoBehaviour
         InputRect.transform.DOMoveX(InputRect.transform.position.x, 1f).From(InputRect.transform.position.x - 600).SetEase(Ease.InOutSine);
 
         PlayButton.gameObject.SetActive(true);
-        PlayButton.transform.DOMoveY(PlayButton.transform.position.y, 1f).From(PlayButton.transform.position.y + 300).SetEase(Ease.InOutSine);
+        PlayButton.DOFade(1, 1f).From(0).SetEase(Ease.InOutSine);
 
 
         // Go! SFX and UI
@@ -135,7 +145,7 @@ public class UIController : MonoBehaviour
 
     public void OnTurnEnded(int turn)
     {
-        turnText.text = turn.ToString();
+        turnText.text = "Turn: " + (turn + 0).ToString();
     }
 
 
@@ -154,7 +164,7 @@ public class UIController : MonoBehaviour
 
     void ShowEndLevelScreen(bool isVictory)
     {
-        winLosePanel.SetActive(true);
+        winLosePanel.gameObject.SetActive(true);
 
         goToNextLevelButtonGO.SetActive(isVictory);
         restartLevelButtonGO.SetActive(!isVictory);
@@ -163,22 +173,27 @@ public class UIController : MonoBehaviour
 
         winLoseMenu.GetComponent<Image>().color = isVictory ? winColor : loseColor;
 
-        if (isVictory)
-            winLosePanel.transform.DOMoveY(winLosePanel.transform.position.y, 1f).From(winLosePanel.transform.position.y - 1000).SetEase(Ease.InOutSine);
-        else
-            winLosePanel.transform.DOMoveY((winLosePanel.transform.position.y - 1000), 1f).From(winLosePanel.transform.position.y).SetEase(Ease.InOutSine);
+        winLosePanel.DOFade(1, 0.5f).From(0).SetEase(Ease.InOutSine);
+
     }
 
+    public void ResetButtonFromDefeat()
+    {
+        LevelController.Instance.ResetInGame();
+
+        winLosePanel.GetComponent<CanvasGroup>().DOFade(0, 0.5f).From(1).SetEase(Ease.InOutSine).OnComplete(() => winLosePanel.gameObject.SetActive(false));
+
+    }
 
 
     public IEnumerator PlayPressedCoroutine()
     {
-        Tween playTween = PlayButton.transform.DOMoveY(PlayButton.transform.position.y + 300, 0.5f);
+        Tween playTween = PlayButton.DOFade(0, 0.5f);
         RestartButton.gameObject.SetActive(true);
         PauseButton.gameObject.SetActive(true);
 
-        RestartButton.transform.DOMoveY(RestartButton.transform.position.y, 0.5f).From(RestartButton.transform.position.y + 300).SetEase(Ease.InOutSine);
-        PauseButton.transform.DOMoveY(PauseButton.transform.position.y, 0.5f).From(PauseButton.transform.position.y + 300).SetEase(Ease.InOutSine);
+        RestartButton.DOFade(1, 0.5f).From(0).SetEase(Ease.InOutSine);
+        PauseButton.DOFade(1, 0.5f).From(0).SetEase(Ease.InOutSine);
 
         yield return playTween.WaitForCompletion();
     }

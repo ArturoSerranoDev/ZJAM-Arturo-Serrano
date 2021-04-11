@@ -59,11 +59,6 @@ public class CommandsController : MonoBehaviour
                     selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
                 break;
 
-            case "Pick":
-                newCommand = PoolManager.Instance.Spawn(pickCommandPrf,
-                    selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
-                break;
-
             case "Finish":
                 newCommand = PoolManager.Instance.Spawn(finishCommandPrf,
                     selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
@@ -83,6 +78,24 @@ public class CommandsController : MonoBehaviour
         // Remove last
         PoolManager.Instance.Despawn(commands[commands.Count - 1].gameObject);
         commands.RemoveAt(commands.Count - 1);
+
+    }
+
+    public void InsertCheatcode()
+    {
+        int level = LevelController.Instance.currentLevel;
+
+        foreach (CommandView command in commands)
+        {
+            PoolManager.Instance.Despawn(command.gameObject);
+        }
+        commands.Clear();
+
+        foreach (string cheatInput in LevelController.Instance.levelData.cheatCode)
+        {
+            AddCommand(cheatInput);
+        }
+
 
     }
 

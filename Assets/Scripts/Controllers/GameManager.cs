@@ -39,7 +39,7 @@ public class GameManager : UnitySingletonPersistent<GameManager>
             for (int i = 0; i < UIMenuController.levelsButton.Count; i++)
             {
                 Button buttonLevel = UIMenuController.levelsButton[i];
-                buttonLevel.enabled = false;
+                buttonLevel.interactable = false;
             }
         }
         else
@@ -55,7 +55,7 @@ public class GameManager : UnitySingletonPersistent<GameManager>
             for (int i = 0; i < UIMenuController.levelsButton.Count; i++)
             {
                 Button buttonLevel = UIMenuController.levelsButton[i];
-                buttonLevel.enabled = i > lastChapterUnlocked ? false : true;
+                buttonLevel.interactable = i > lastChapterUnlocked ? false : true;
             }
         }
     }

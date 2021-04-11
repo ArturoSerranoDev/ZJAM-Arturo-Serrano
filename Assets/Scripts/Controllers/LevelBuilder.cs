@@ -7,6 +7,7 @@ public class LevelBuilder : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject floorPrefab;
+    public GameObject evacPrefab;
     public GameObject playerPrefab;
 
     public GameObject player;
@@ -14,8 +15,11 @@ public class LevelBuilder : MonoBehaviour
     public List<GameObject> tilesInLevel = new List<GameObject>();
     public List<EnemyView> enemiesInLevel = new List<EnemyView>();
 
+    public Material floorMat;
+
+
     public int size = 10;
-    public float turnSpeed = 0.25f;
+    public float turnSpeed = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +40,8 @@ public class LevelBuilder : MonoBehaviour
 
     public void BuildLevel(LevelData levelData)
     {
+        floorMat.SetTexture("_BaseMap", levelData.floorMat);
+
         SpawnTiles(levelData);
 
         SpawnBuildings(levelData);
@@ -72,7 +78,7 @@ public class LevelBuilder : MonoBehaviour
             newEnemy.transform.position = new Vector3(enemyData.enemyPos.x,0, enemyData.enemyPos.y);
             EnemyView enemyView = newEnemy.GetComponent<EnemyView>();
 
-            enemyView.Reset();
+            enemyView.Reset(enemyData);
             enemyView.animSpeed = turnSpeed;
 
             enemyView.enemyLoopType = enemyData.commandLoopType;
@@ -104,19 +110,17 @@ public class LevelBuilder : MonoBehaviour
                 switch (tileLetter)
                 {
                     case "T":
-                        spawnedTile = PoolManager.Instance.Spawn(floorPrefab, Vector3.zero, Quaternion.identity);
+                        spawnedTile = PoolManager.Instance.Spawn(levelData.tilePrefab, Vector3.zero, Quaternion.identity);
                         spawnedTile.transform.position = new Vector3(i, 0, j);
                         tilesInLevel.Add(spawnedTile);
                         spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
 
                         break;
                     case "E":
-                        spawnedTile = PoolManager.Instance.Spawn(floorPrefab, Vector3.zero, Quaternion.identity);
+                        spawnedTile = PoolManager.Instance.Spawn(evacPrefab, Vector3.zero, Quaternion.identity);
                         spawnedTile.transform.position = new Vector3(i, 0, j);
                         tilesInLevel.Add(spawnedTile);
                         spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
-
-                        spawnedTile.AddComponent<EvacTile>();
 
                         break;
 

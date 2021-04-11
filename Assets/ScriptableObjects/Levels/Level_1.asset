@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   levelNumber: 1
-  playerStartingPos: {x: 2.5, y: 0, z: 4.5}
+  playerStartingPos: {x: 2.5, y: 0.5, z: 4.5}
   enemiesData: []
   commandData:
   - commandType: 0
@@ -128,4 +128,6 @@ MonoBehaviour:
   - 
   levelObjective: 1
   turnLimit: 100
-  evacPos: {x: 0, y: 0, z: 0}
+  floorMat: {fileID: 2800000, guid: 3d5638e584fc71743b4c50128d46be6d, type: 3}
+  tilePrefab: {fileID: 1299894681180897121, guid: 80461460436f98a4392321ab41ae8ca0,
+    type: 3}

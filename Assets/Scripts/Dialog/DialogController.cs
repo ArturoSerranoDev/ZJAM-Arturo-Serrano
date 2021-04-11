@@ -74,7 +74,7 @@ public class DialogController : MonoBehaviour
         leftSpeakerImage.color = currentSpeaker == SpeakerType.LeftSpeaker ? speakerColor : listenerColor;
         rigthSpeakerImage.color = currentSpeaker == SpeakerType.RightSpeaker ? speakerColor : listenerColor;
 
-        Tween dialogTween = speakerImage.transform.DOMoveY(speakerImage.transform.position.y + 1f, 0.25f).SetLoops(2,LoopType.Yoyo);
+        Tween dialogTween = speakerImage.transform.DOMoveY(speakerImage.transform.position.y + 100f, 0.125f).SetLoops(2,LoopType.Yoyo);
 
 
         // dialog typewriter

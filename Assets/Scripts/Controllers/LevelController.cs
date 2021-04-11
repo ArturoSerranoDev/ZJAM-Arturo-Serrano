@@ -33,6 +33,8 @@ public class LevelController : UnitySingletonPersistent<LevelController>
     public event OnGameLost onGameLost;
     public delegate void OnLastTurn();
     public event OnLastTurn onLastTurn;
+    public delegate void OnReset();
+    public event OnReset onReset;
 
     public int currentLevel = 0;
     public int currentTurn = 0;
@@ -65,6 +67,8 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     public void ResetInGame()
     {
+        StopAllCoroutines();
+        DG.Tweening.DOTween.KillAll();
         // Stop Coroutine
         if (playTurnCoroutine != null)
         {
@@ -72,14 +76,29 @@ public class LevelController : UnitySingletonPersistent<LevelController>
         }
 
         // Reset Player pos and status
+        playerController.StopAllCoroutines();
+        playerController.transform.position = levelData.playerStartingPos;
+        playerController.transform.rotation = Quaternion.identity;
+        playerController.Reset();
+
 
         // Reset enemies pos and status
+        for (int i = 0; i < enemiesInLevel.Count; i++)
+        {
+            EnemyView enemyView = enemiesInLevel[i];
+
+            enemyView.StopAllCoroutines();
+            enemyView.Reset(levelData.enemiesData[i]);
+            enemyView.transform.position = levelData.enemiesData[i].enemyPos;
+        }
 
         // Reset moved/Destroyed buildings
 
         currentTurn = 0;
         isPaused = false;
         levelEvacPos = Vector3.zero;
+
+        onReset?.Invoke();
     }
 
     public void LoadNextLevel()
