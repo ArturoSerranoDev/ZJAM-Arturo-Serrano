@@ -103,7 +103,12 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     public void LoadNextLevel()
     {
+
         currentLevel++;
+        ContextManager.Instance.currentLevel = currentLevel;
+        commandsController.RemoveAllCommands();
+
+        Reset();
         CheckSavingLastChapter();
         levelBuilder.DespawnAll();
 
@@ -113,6 +118,8 @@ public class LevelController : UnitySingletonPersistent<LevelController>
 
     public void LoadLevel()
     {
+        currentLevel = ContextManager.Instance.currentLevel;
+
         levelData = chapterConfig.levels[currentLevel];
 
         dialogController.dialogData = levelData.levelDialog;

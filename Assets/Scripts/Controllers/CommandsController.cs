@@ -28,7 +28,7 @@ public class CommandsController : MonoBehaviour
 
     public void AddCommand(string commandType)
     {
-        if (commands.Count >= selectedCommandsSlots.Count)
+        if (commands.Count >= selectedCommandsSlots.Count && LevelController.Instance.currentLevel != 5)
             return;
 
 
@@ -71,12 +71,14 @@ public class CommandsController : MonoBehaviour
 
 
 
-        if (LevelController.Instance.currentLevel == 1 && commandType == "MoveUp")
+        if (LevelController.Instance.currentLevel == 5 && commandType == "MoveUp")
         {
             int distance = LevelController.Instance.playerController.GetDistanceToForwardCollider();
 
             for (int i = 0; i < distance; i++)
             {
+                newCommand = PoolManager.Instance.Spawn(moveUpCommandPrf,
+              selectedCommandsSlots[commands.Count].transform.position, Quaternion.identity, commandsParent.transform);
                 commands.Add(newCommand.GetComponent<CommandView>());
             }
             return;
@@ -99,11 +101,7 @@ public class CommandsController : MonoBehaviour
     {
         int level = LevelController.Instance.currentLevel;
 
-        foreach (CommandView command in commands)
-        {
-            PoolManager.Instance.Despawn(command.gameObject);
-        }
-        commands.Clear();
+        RemoveAllCommands();
 
         foreach (string cheatInput in LevelController.Instance.levelData.cheatCode)
         {
@@ -113,7 +111,12 @@ public class CommandsController : MonoBehaviour
 
     }
 
-
-
-
+    public void RemoveAllCommands()
+    {
+        foreach (CommandView command in commands)
+        {
+            PoolManager.Instance.Despawn(command.gameObject);
+        }
+        commands.Clear();
+    }
 }

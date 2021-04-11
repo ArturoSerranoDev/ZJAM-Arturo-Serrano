@@ -13,21 +13,30 @@ MonoBehaviour:
   m_Name: Level1_Dialog
   m_EditorClassIdentifier: 
   levelDialog:
-  - speaker: 0
-    text: This is a test
-    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
-  - speaker: 0
-    text: Yes
-    dialogImage: {fileID: 21300000, guid: 7ccb25c0ca1ba694c82a8e76056a97ff, type: 3}
   - speaker: 1
-    text: This is
-    dialogImage: {fileID: 21300000, guid: 7ccb25c0ca1ba694c82a8e76056a97ff, type: 3}
-  - speaker: 1
-    text: 'a '
-    dialogImage: {fileID: 21300000, guid: 3d686e67669b38b40b244bb38c2e4790, type: 3}
-  - speaker: 0
-    text: Test
+    text: Hi, welcome to your first day on the job
     dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
   - speaker: 1
-    text: yeah
-    dialogImage: {fileID: 21300000, guid: a3a6d082ac880444a9432f0fec232f2f, type: 3}
+    text: Today, I will explain you the basics control of R0B0Ts.
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
+  - speaker: 1
+    text: As now you are part of the UMMME! Congratulations
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
+  - speaker: 1
+    text: (The UMMME stands for Unidad Militar de Matar Monstruos de Emergencia)
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
+  - speaker: 0
+    text: Got it
+    dialogImage: {fileID: 21300000, guid: a190cc731be3c9842a449964d011a140, type: 3}
+  - speaker: 1
+    text: On your left you will see a black box and some inputs
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
+  - speaker: 1
+    text: You will command this R0B0T from home, using the commands you see below
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
+  - speaker: 0
+    text: Will Do
+    dialogImage: {fileID: 21300000, guid: a190cc731be3c9842a449964d011a140, type: 3}
+  - speaker: 1
+    text: Try to Reach the Evac Pos!
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}

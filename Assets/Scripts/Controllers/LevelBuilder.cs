@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class LevelBuilder : MonoBehaviour
 {
@@ -11,10 +12,12 @@ public class LevelBuilder : MonoBehaviour
     public GameObject playerPrefab;
 
     public GameObject player;
+    public GameObject evac;
 
+    public GameObject levelBuildingsParent;
     public List<GameObject> tilesInLevel = new List<GameObject>();
     public List<EnemyView> enemiesInLevel = new List<EnemyView>();
-    public List<BuildingView> buildings = new List<BuildingView>();
+    public List<GameObject> buildings = new List<GameObject>();
 
     public Material floorMat;
 
@@ -48,10 +51,22 @@ public class LevelBuilder : MonoBehaviour
             PoolManager.Instance.Despawn(item.gameObject);
         }
 
-        foreach (BuildingView item in buildings)
+        foreach (GameObject item in buildings)
         {
             PoolManager.Instance.Despawn(item.gameObject);
         }
+        levelBuildingsParent.transform.GetChild(LevelController.Instance.currentLevel - 1).gameObject.SetActive(false);
+
+        foreach (GameObject item in tilesInLevel)
+        {
+            PoolManager.Instance.Despawn(item.gameObject);
+        }
+
+        PoolManager.Instance.Despawn(evac.gameObject);
+
+        enemiesInLevel.Clear();
+        buildings.Clear();
+        tilesInLevel.Clear();
 
     }
 
@@ -61,11 +76,13 @@ public class LevelBuilder : MonoBehaviour
 
         SpawnTiles(levelData);
 
-        SpawnBuildings(levelData);
 
         SpawnEnemies(levelData);
 
         SpawnPlayer(levelData);
+
+        evac = PoolManager.Instance.Spawn(evacPrefab, Vector3.zero, Quaternion.identity);
+        evac.transform.position = levelData.escapePodPos;
 
         Debug.Log("Level Built");
     }
@@ -80,7 +97,6 @@ public class LevelBuilder : MonoBehaviour
 
         player.transform.position = levelData.playerStartingPos;
 
-        player.gameObject.SetActive(false);
 
         Debug.Log("SpawnPlayer");
 
@@ -92,7 +108,7 @@ public class LevelBuilder : MonoBehaviour
         {
             GameObject newEnemy = PoolManager.Instance.Spawn(enemyData.enemyPrefab, Vector3.zero, Quaternion.identity);
 
-            newEnemy.transform.position = new Vector3(enemyData.enemyPos.x,0, enemyData.enemyPos.y);
+            newEnemy.transform.position = enemyData.enemyPos;
             EnemyView enemyView = newEnemy.GetComponent<EnemyView>();
 
             enemyView.Reset(enemyData);
@@ -110,8 +126,14 @@ public class LevelBuilder : MonoBehaviour
 
     void SpawnBuildings(LevelData levelData)
     {
+        Transform BuildingsParent = levelBuildingsParent.transform.GetChild(levelData.levelNumber - 1);
 
-        Debug.Log("SpawnBuildings");
+        foreach (Transform item in BuildingsParent.transform)
+        {
+            item.gameObject.SetActive(true);
+            item.transform.DOScale(1, 0.5f).From(0);
+            buildings.Add(item.gameObject);
+        }
     }
 
     void SpawnTiles(LevelData levelData)
@@ -123,28 +145,33 @@ public class LevelBuilder : MonoBehaviour
             {
                 string tileLetter = levelData.levelTiles[j + 10 * i];
 
-                //Spawn depending on the tileLetter
                 GameObject spawnedTile;
-                switch (tileLetter)
-                {
-                    case "T":
-                        spawnedTile = PoolManager.Instance.Spawn(levelData.tilePrefab, Vector3.zero, Quaternion.identity);
-                        spawnedTile.transform.position = new Vector3(i, 0, j);
-                        tilesInLevel.Add(spawnedTile);
-                        spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
+                spawnedTile = PoolManager.Instance.Spawn(levelData.tilePrefab, Vector3.zero, Quaternion.identity);
+                spawnedTile.transform.position = new Vector3(i, 0, j);
+                tilesInLevel.Add(spawnedTile);
+                spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
 
-                        break;
-                    case "E":
-                        spawnedTile = PoolManager.Instance.Spawn(evacPrefab, Vector3.zero, Quaternion.identity);
-                        spawnedTile.transform.position = new Vector3(i, 0, j);
-                        tilesInLevel.Add(spawnedTile);
-                        spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
+                ////Spawn depending on the tileLetter
+                //switch (tileLetter)
+                //{
+                //    case "T":
+                //        spawnedTile = PoolManager.Instance.Spawn(levelData.tilePrefab, Vector3.zero, Quaternion.identity);
+                //        spawnedTile.transform.position = new Vector3(i, 0, j);
+                //        tilesInLevel.Add(spawnedTile);
+                //        spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
 
-                        break;
+                //        break;
+                //    case "E":
+                //        spawnedTile = PoolManager.Instance.Spawn(evacPrefab, Vector3.zero, Quaternion.identity);
+                //        spawnedTile.transform.position = new Vector3(i, 0, j);
+                //        tilesInLevel.Add(spawnedTile);
+                //        spawnedTile.transform.GetChild(0).localScale = Vector3.zero;
 
-                    default:
-                        break;
-                }
+                //        break;
+
+                //    default:
+                //        break;
+                //}
 
 
             }
@@ -161,15 +188,25 @@ public class LevelBuilder : MonoBehaviour
 
         foreach (GameObject tile in tilesInLevel)
         {
-            yield return StartCoroutine(tile.GetComponent<TweenAction>().ExecuteTween());
+            StartCoroutine(tile.GetComponent<TweenAction>().ExecuteTween());
+            yield return new WaitForEndOfFrame();
         }
 
-        player.gameObject.SetActive(true);
+        SpawnBuildings(LevelController.Instance.levelData);
+
+        yield return StartCoroutine(player.GetComponent<TweenAction>().ExecuteTween());
+
 
         // yield all buildings spawn
-
+        foreach (GameObject tile in buildings)
+        {
+            //yield return StartCoroutine(tile.GetComponent<TweenAction>().ExecuteTween());
+        }
         // yield all enemies spawn
-
+        foreach (EnemyView enemy in enemiesInLevel)
+        {
+            yield return StartCoroutine(enemy.GetComponent<TweenAction>().ExecuteTween());
+        }
 
         yield return new WaitForEndOfFrame();
     }

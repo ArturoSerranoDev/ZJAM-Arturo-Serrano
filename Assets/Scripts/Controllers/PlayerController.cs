@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public UseToWin usetowin;
+
     public GameObject playerCenter;
     public TweenAction spawnTween;
     public TweenAction moveTween;
@@ -30,7 +32,7 @@ public class PlayerController : MonoBehaviour
                 // if not, play stuck anim
                 if (!IsNextTileValidMove(commandView.commandType))
                 {
-                    tweenAction = transform.DOShakePosition(0.5f * animSpeed,0.1f,1,90,false,true);
+                    tweenAction = transform.DOShakePosition(0.5f * animSpeed,0.25f,7,90,false,true);
 
                     yield return tweenAction.WaitForCompletion();
                     break;
@@ -48,6 +50,19 @@ public class PlayerController : MonoBehaviour
                 tweenAction = transform.DORotate(transform.eulerAngles + new Vector3(0, 90 * rotateCommand.rotDir, 0), 0.5f * animSpeed);
 
                 yield return tweenAction.WaitForCompletion();
+                break;
+            case CommandType.Use:
+
+                if(LevelController.Instance.currentLevel == 5 && Vector3.Distance(GetPlayerPosByRaycast(), usetowin.finalUsePos) < 2f)
+                {
+                    Debug.Log("FINISHED GAME");
+                    //tweenAction = transform.DORotate(transform.eulerAngles + new Vector3(0, 90 * rotateCommand.rotDir, 0), 0.5f * animSpeed);
+
+                    //yield return tweenAction.WaitForCompletion();
+                }
+
+
+              
                 break;
         }
 
@@ -137,7 +152,9 @@ public class PlayerController : MonoBehaviour
         layerMask = ~layerMask;
 
         int distance = 0;
-        if (Physics.Raycast(playerCenter.transform.position, transform.forward, out hit, 1f, layerMask))
+        Debug.DrawRay(playerCenter.transform.position, transform.forward * 10, Color.blue, 1f);
+
+        if (Physics.Raycast(playerCenter.transform.position, playerCenter.transform.forward * 10, out hit, 10f, layerMask))
             if (hit.collider != null)
             {
                 distance = (int)Vector3.Distance(transform.position, hit.collider.transform.position);

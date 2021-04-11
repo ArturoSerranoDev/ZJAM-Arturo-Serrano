@@ -9,6 +9,7 @@ public enum EnemyType { Melee, Shooter}
 
 public class EnemyView : MonoBehaviour
 {
+    public GameObject enemyCenter;
     public List<Command> enemyCommands = new List<Command>();
 
     public EnemyLoopType enemyLoopType = EnemyLoopType.Reverse;
@@ -17,6 +18,7 @@ public class EnemyView : MonoBehaviour
     public float animSpeed;
 
     public bool isAlive;
+    public LineRenderer lineRenderer;
     //public Command GetNextCommandAction()
     //{
     //    //if end, reverse commands and execute
@@ -31,7 +33,7 @@ public class EnemyView : MonoBehaviour
 
     public IEnumerator ExecuteCommand()
     {
-        if (!isAlive)
+        if (!isAlive || LevelController.Instance.currentLevel == 5)
             yield break;
 
         bool shouldAttack = CheckAttackPlayer();
@@ -39,6 +41,15 @@ public class EnemyView : MonoBehaviour
         if (shouldAttack)
         {
             // attack anim
+            if (enemyType == EnemyType.Melee)
+            {
+                yield return transform.DORotate(new Vector3(0, 1080,0), 0.1f).SetLoops(4,LoopType.Incremental);
+
+            }
+            else
+            {
+
+            }
 
             // trigger death anim on player
             
@@ -53,7 +64,10 @@ public class EnemyView : MonoBehaviour
 
         // break
 
-
+        if(enemyType == EnemyType.Shooter)
+        {
+            UpdateLineRenderer();
+        }
 
 
         Command turnCommand = enemyCommands[turn];
@@ -93,9 +107,115 @@ public class EnemyView : MonoBehaviour
 
     }
 
-    private bool CheckAttackPlayer()
+    private void UpdateLineRenderer()
     {
-        throw new NotImplementedException();
+
+        
+
+            RaycastHit hit;
+
+
+            int distance = 0;
+            Debug.DrawRay(enemyCenter.transform.position, enemyCenter.transform.forward * 10, Color.blue, 10f);
+
+            if (Physics.Raycast(lineRenderer.transform.position, lineRenderer.transform.forward * 10, out hit, 10f))
+                if (hit.collider != null)
+                {
+                    lineRenderer.SetPosition(1, hit.collider.transform.position);
+                }
+
+            Debug.Log("Distance of" + distance);
+
+        
+    }
+
+    bool CheckAttackPlayer()
+    {
+        if (enemyType == EnemyType.Melee)
+        {
+
+            RaycastHit hit;
+            int layerMask = 1 << 8;
+
+            if (Physics.Raycast(enemyCenter.transform.position, enemyCenter.transform.forward, out hit, 1.2f))
+            {
+                if (hit.collider != null)
+                {
+                    if (hit.collider.GetComponent<PlayerController>())
+                    {
+                        Debug.Log("IsNextTileValidMove false");
+                        return true;
+                    }
+                }
+            }
+
+
+
+            if (Physics.Raycast(enemyCenter.transform.position, -enemyCenter.transform.forward, out hit, 1.2f))
+            {
+                if (hit.collider != null)
+                {
+                    if (hit.collider.GetComponent<PlayerController>())
+                    {
+                        Debug.Log("IsNextTileValidMove false");
+                        return true;
+                    }
+                }
+            }
+
+
+
+            if (Physics.Raycast(enemyCenter.transform.position, enemyCenter.transform.right, out hit, 1.2f))
+            {
+                if (hit.collider != null)
+                {
+                    if (hit.collider.GetComponent<PlayerController>())
+                    {
+                        Debug.Log("IsNextTileValidMove false");
+                        return true;
+                    }
+                }
+            }
+
+
+
+            if (Physics.Raycast(enemyCenter.transform.position, -enemyCenter.transform.right, out hit, 1.2f))
+            {
+                if (hit.collider != null)
+                {
+                    if (hit.collider.GetComponent<PlayerController>())
+                    {
+                        Debug.Log("IsNextTileValidMove false");
+                        return true;
+                    }
+                }
+            }
+
+
+
+            return false;
+
+        }
+
+        else
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(enemyCenter.transform.position, enemyCenter.transform.forward, out hit, 10f))
+            {
+                if (hit.collider != null)
+                {
+                    if (hit.collider.GetComponent<PlayerController>())
+                    {
+                        Debug.Log("IsNextTileValidMove false");
+                        return true;
+                    }
+                }
+            }
+
+        }
+
+        return false;
     }
 
     public void Destroy()

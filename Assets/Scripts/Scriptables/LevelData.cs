@@ -22,13 +22,14 @@ public class LevelData : ScriptableObject
     public Texture floorMat;
     public GameObject tilePrefab;
     public List<string> cheatCode;
+    public Vector3 escapePodPos;
 }
 
 [System.Serializable]
 public class EnemyData
 {
    public GameObject enemyPrefab;
-   public Vector2 enemyPos;
+   public Vector3 enemyPos;
    public List<Command> enemyCommands;
    public EnemyLoopType commandLoopType;
 }

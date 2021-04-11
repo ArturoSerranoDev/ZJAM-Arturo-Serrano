@@ -13,12 +13,18 @@ MonoBehaviour:
   m_Name: Level2_Dialog
   m_EditorClassIdentifier: 
   levelDialog:
+  - speaker: 1
+    text: Ok, for your final tutorial I will leave you with a challenge
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
   - speaker: 0
-    Text: test 1
-    dialogImage: {fileID: 0}
+    text: One question sir, before you leave
+    dialogImage: {fileID: 21300000, guid: e103443e01dc03544b83a2de1f155549, type: 3}
+  - speaker: 1
+    text: Yes?
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
   - speaker: 0
-    Text: test 1
-    dialogImage: {fileID: 0}
-  - speaker: 0
-    Text: test 3
-    dialogImage: {fileID: 0}
+    text: This "Hand", this button. What does it do?
+    dialogImage: {fileID: 21300000, guid: e103443e01dc03544b83a2de1f155549, type: 3}
+  - speaker: 1
+    text: You will know in time (also feature creep)
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}

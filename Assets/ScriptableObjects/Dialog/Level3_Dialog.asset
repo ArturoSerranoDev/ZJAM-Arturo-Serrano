@@ -13,21 +13,24 @@ MonoBehaviour:
   m_Name: Level3_Dialog
   m_EditorClassIdentifier: 
   levelDialog:
-  - speaker: 0
-    Text: test 1
-    dialogImage: {fileID: 0}
-  - speaker: 0
-    Text: test 1
-    dialogImage: {fileID: 0}
   - speaker: 1
-    Text: test 3
-    dialogImage: {fileID: 0}
+    text: Ok now you are in for a real challenge
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
   - speaker: 1
-    Text: test 4
-    dialogImage: {fileID: 0}
+    text: Go to the EVAC as always...
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
+  - speaker: 1
+    text: StabStabStabStabStabStabStabStab
+    dialogImage: {fileID: 21300000, guid: 3d686e67669b38b40b244bb38c2e4790, type: 3}
+  - speaker: 1
+    text: Watch out, there are real enemies on the city ravaging everything!
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
+  - speaker: 1
+    text: This one wants to cut us in pieces! Look at those arms. 4 knifes!
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
   - speaker: 0
-    Text: YES
-    dialogImage: {fileID: 0}
+    text: It even seems that its body is itself another knife
+    dialogImage: {fileID: 21300000, guid: e103443e01dc03544b83a2de1f155549, type: 3}
   - speaker: 1
-    Text: YES
-    dialogImage: {fileID: 0}
+    text: StabStabStabStabStabStabStabStab
+    dialogImage: {fileID: 21300000, guid: 3d686e67669b38b40b244bb38c2e4790, type: 3}

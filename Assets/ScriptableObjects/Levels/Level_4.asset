@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba78b19af4fb87e48bb22f5b9dc71512, type: 3}
+  m_Name: Level_4
+  m_EditorClassIdentifier: 
+  levelNumber: 4
+  playerStartingPos: {x: 4.5, y: 0.5, z: 0.5}
+  enemiesData:
+  - enemyPrefab: {fileID: 5665542666503184248, guid: 2b7bcb738c5269e4eb99853f9fb94ab4,
+      type: 3}
+    enemyPos: {x: 7.5, y: 0.5, z: 8.5}
+    enemyCommands: []
+    commandLoopType: 0
+  - enemyPrefab: {fileID: 5665542666503184248, guid: 2b7bcb738c5269e4eb99853f9fb94ab4,
+      type: 3}
+    enemyPos: {x: 3.5, y: 0.5, z: 7.5}
+    enemyCommands: []
+    commandLoopType: 0
+  commandData:
+  - commandType: 0
+    amount: 3
+  - commandType: 1
+    amount: 2
+  - commandType: 3
+    amount: 2
+  - commandType: 2
+    amount: 1
+  levelDialog: {fileID: 11400000, guid: 6e0830595d3bcf640901c6e752c492c7, type: 2}
+  levelTiles:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  levelObjective: 1
+  turnLimit: 100
+  floorMat: {fileID: 2800000, guid: 1fe395049d6dfa84db381f079a013943, type: 3}
+  tilePrefab: {fileID: 3911652496427582447, guid: 9d424fecd019e0546ae7aee3d57e7971,
+    type: 3}
+  cheatCode:
+  - MoveUp
+  - RotLeft
+  - MoveUp
+  - MoveUp
+  - RotRigth
+  - MoveUp
+  - RotLeft
+  - MoveUp
+  - RotRigth
+  - MoveUp
+  - MoveUp
+  - MoveUp
+  - RotLeft
+  - MoveUp
+  escapePodPos: {x: 1, y: 0, z: 4}

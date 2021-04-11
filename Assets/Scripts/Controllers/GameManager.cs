@@ -35,6 +35,7 @@ public class GameManager : UnitySingletonPersistent<GameManager>
 
             UIMenuController.newGameText.SetActive(true);
             UIMenuController.continueGameText.SetActive(false);
+            ContextManager.Instance.currentLevel = 1;
 
             for (int i = 0; i < UIMenuController.levelsButton.Count; i++)
             {
@@ -85,9 +86,15 @@ public class GameManager : UnitySingletonPersistent<GameManager>
         // Fade to black
         yield return StartCoroutine(UIMenuController.FadeToBlack());
 
+
         currentScene = "LevelScene";
         SceneManager.LoadScene(sceneName);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && currentScene == "MenuScene")
+            QuitApplication();    }
 
     public void QuitApplication()
     {

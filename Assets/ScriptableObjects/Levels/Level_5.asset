@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba78b19af4fb87e48bb22f5b9dc71512, type: 3}
+  m_Name: Level_5
+  m_EditorClassIdentifier: 
+  levelNumber: 5
+  playerStartingPos: {x: 1.5, y: 0.5, z: 3.5}
+  enemiesData: []
+  commandData:
+  - commandType: 0
+    amount: 3
+  - commandType: 1
+    amount: 2
+  - commandType: 3
+    amount: 2
+  - commandType: 2
+    amount: 1
+  levelDialog: {fileID: 11400000, guid: 45ddf98da870eba4398b59120a124980, type: 2}
+  levelTiles:
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - T
+  - T
+  - T
+  - T
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - E
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  levelObjective: 1
+  turnLimit: 100
+  floorMat: {fileID: 2800000, guid: 1fe395049d6dfa84db381f079a013943, type: 3}
+  tilePrefab: {fileID: 7859322970517552779, guid: 179a4dae0e287f84da15fd93d8b2232b,
+    type: 3}
+  cheatCode:
+  - RotRigth
+  - MoveUp
+  - RotRigth
+  - MoveUp
+  - RotLeft
+  - MoveUp
+  - RotLeft
+  - MoveUp
+  - Use
+  escapePodPos: {x: 0, y: -2, z: 0}

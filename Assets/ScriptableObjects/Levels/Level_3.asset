@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba78b19af4fb87e48bb22f5b9dc71512, type: 3}
+  m_Name: Level_3
+  m_EditorClassIdentifier: 
+  levelNumber: 3
+  playerStartingPos: {x: 2.5, y: 0.5, z: 0.5}
+  enemiesData:
+  - enemyPrefab: {fileID: 170921983224100379, guid: f0e8bef2f10e6a548aebcc39201adb98,
+      type: 3}
+    enemyPos: {x: 2.5, y: 0.5, z: 4.5}
+    enemyCommands:
+    - {fileID: 11400000, guid: 30ad3ef218ecb384685e261ee33fd12c, type: 2}
+    - {fileID: 11400000, guid: 30ad3ef218ecb384685e261ee33fd12c, type: 2}
+    - {fileID: 11400000, guid: 30ad3ef218ecb384685e261ee33fd12c, type: 2}
+    commandLoopType: 1
+  - enemyPrefab: {fileID: 170921983224100379, guid: f0e8bef2f10e6a548aebcc39201adb98,
+      type: 3}
+    enemyPos: {x: 8.5, y: 0.5, z: 1.5}
+    enemyCommands:
+    - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
+    - {fileID: 11400000, guid: 55ff05343c276eb49a897d8850949a37, type: 2}
+    - {fileID: 11400000, guid: 934781c66d4c1f24fbaa133a8e3c6ec8, type: 2}
+    commandLoopType: 0
+  commandData:
+  - commandType: 0
+    amount: 3
+  - commandType: 1
+    amount: 2
+  - commandType: 3
+    amount: 2
+  - commandType: 2
+    amount: 1
+  levelDialog: {fileID: 11400000, guid: acc72499eff98214c8cb46fb0281807e, type: 2}
+  levelTiles:
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - T
+  - T
+  - T
+  - T
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - E
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  levelObjective: 1
+  turnLimit: 100
+  floorMat: {fileID: 2800000, guid: 1fe395049d6dfa84db381f079a013943, type: 3}
+  tilePrefab: {fileID: 3911652496427582447, guid: 9d424fecd019e0546ae7aee3d57e7971,
+    type: 3}
+  cheatCode:
+  - MoveUp
+  - RotRigth
+  - MoveUp
+  - MoveUp
+  - RotLeft
+  - MoveUp
+  - MoveUp
+  - RotRigth
+  - MoveUp
+  - MoveUp
+  - MoveUp
+  - MoveUp
+  - RotLeft
+  - MoveUp
+  escapePodPos: {x: 8, y: 0, z: 4}

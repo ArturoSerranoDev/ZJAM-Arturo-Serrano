@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba78b19af4fb87e48bb22f5b9dc71512, type: 3}
   m_Name: Level_2
   m_EditorClassIdentifier: 
-  levelNumber: 1
-  playerStartingPos: {x: 0.5, y: 0.5, z: 4.5}
+  levelNumber: 2
+  playerStartingPos: {x: 1.5, y: 0.5, z: 2.5}
   enemiesData: []
   commandData:
   - commandType: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
     amount: 2
   - commandType: 2
     amount: 1
-  levelDialog: {fileID: 11400000, guid: afde195d824a3e44e8cb3ec5f83bfd25, type: 2}
+  levelDialog: {fileID: 11400000, guid: 26cea00348a60624bb9ad50ee3e7ad49, type: 2}
   levelTiles:
   - T
   - T
@@ -36,20 +36,20 @@ MonoBehaviour:
   - T
   - T
   - T
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
+  - T
   - T
   - T
   - T
@@ -131,4 +131,17 @@ MonoBehaviour:
   floorMat: {fileID: 2800000, guid: 3d5638e584fc71743b4c50128d46be6d, type: 3}
   tilePrefab: {fileID: 1299894681180897121, guid: 80461460436f98a4392321ab41ae8ca0,
     type: 3}
-  cheatCode: []
+  cheatCode:
+  - MoveUp
+  - MoveUp
+  - RotRigth
+  - MoveUp
+  - RotLeft
+  - MoveUp
+  - RotRigth
+  - MoveUp
+  - MoveUp
+  - RotRigth
+  - MoveUp
+  - MoveUp
+  escapePodPos: {x: 4, y: 0.1, z: 3}
