@@ -32,6 +32,7 @@ public class CommandsController : MonoBehaviour
             return;
 
 
+
         GameObject newCommand = null;
         switch (commandType)
         {
@@ -68,7 +69,20 @@ public class CommandsController : MonoBehaviour
 
         newCommand.GetComponent<RectTransform>().position = selectedCommandsSlots[commands.Count].GetComponent<RectTransform>().position;
 
-        commands.Add(newCommand.GetComponent<CommandView>());
+
+
+        if (LevelController.Instance.currentLevel == 1 && commandType == "MoveUp")
+        {
+            int distance = LevelController.Instance.playerController.GetDistanceToForwardCollider();
+
+            for (int i = 0; i < distance; i++)
+            {
+                commands.Add(newCommand.GetComponent<CommandView>());
+            }
+            return;
+        }
+        else
+            commands.Add(newCommand.GetComponent<CommandView>());
     }
 
     public void RemoveLastCommand()

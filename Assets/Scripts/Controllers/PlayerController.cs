@@ -127,4 +127,24 @@ public class PlayerController : MonoBehaviour
     {
         isDestroyed = false;
     }
+
+    public int GetDistanceToForwardCollider()
+    {
+        Vector3 pos = Vector3.zero;
+
+        RaycastHit hit;
+        int layerMask = 1 << 8;
+        layerMask = ~layerMask;
+
+        int distance = 0;
+        if (Physics.Raycast(playerCenter.transform.position, transform.forward, out hit, 1f, layerMask))
+            if (hit.collider != null)
+            {
+                distance = (int)Vector3.Distance(transform.position, hit.collider.transform.position);
+            }
+
+        Debug.Log("Distance of" + distance);
+
+        return distance;
+    }
 }

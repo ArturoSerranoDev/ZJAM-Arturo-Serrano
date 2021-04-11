@@ -14,7 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - {fileID: 11400000, guid: 6c4cb5c9f9b65184080a27acd744c509, type: 2}
-  - {fileID: 11400000, guid: b2213995171c9e84394f96399b9a40c4, type: 2}
-  - {fileID: 11400000, guid: d0829e61867829c4fa45d135a2e8110f, type: 2}
-  - {fileID: 11400000, guid: 7afcbd2b4f642d34f8f1e7084ce573b9, type: 2}
-  - {fileID: 11400000, guid: fceff2269640a254090e455d2eeb5990, type: 2}
+  - {fileID: 11400000, guid: d87a9a8932c4017469e028fe69b5c6cf, type: 2}

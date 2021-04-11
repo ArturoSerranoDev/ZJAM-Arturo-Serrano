@@ -15,19 +15,19 @@ MonoBehaviour:
   levelDialog:
   - speaker: 0
     text: This is a test
-    dialogImage: {fileID: 0}
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
   - speaker: 0
     text: Yes
-    dialogImage: {fileID: 0}
+    dialogImage: {fileID: 21300000, guid: 7ccb25c0ca1ba694c82a8e76056a97ff, type: 3}
   - speaker: 1
     text: This is
-    dialogImage: {fileID: 0}
+    dialogImage: {fileID: 21300000, guid: 7ccb25c0ca1ba694c82a8e76056a97ff, type: 3}
   - speaker: 1
     text: 'a '
-    dialogImage: {fileID: 0}
+    dialogImage: {fileID: 21300000, guid: 3d686e67669b38b40b244bb38c2e4790, type: 3}
   - speaker: 0
     text: Test
-    dialogImage: {fileID: 0}
+    dialogImage: {fileID: 21300000, guid: cdcd4ce50190b674a8ef1ea751cfdb9f, type: 3}
   - speaker: 1
     text: yeah
-    dialogImage: {fileID: 0}
+    dialogImage: {fileID: 21300000, guid: a3a6d082ac880444a9432f0fec232f2f, type: 3}

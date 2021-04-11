@@ -17,5 +17,5 @@ public class Dialog
 {
     public SpeakerType speaker;
     public string text;
-    public Image dialogImage;
+    public Sprite dialogImage;
 }

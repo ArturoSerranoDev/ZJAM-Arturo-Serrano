@@ -39,7 +39,7 @@ public class LevelController : UnitySingletonPersistent<LevelController>
     public int currentLevel = 0;
     public int currentTurn = 0;
 
-    PlayerController playerController;
+    public PlayerController playerController;
     bool isPaused;
 
     ObjectiveType levelObjective = ObjectiveType.Escape;
@@ -105,8 +105,10 @@ public class LevelController : UnitySingletonPersistent<LevelController>
     {
         currentLevel++;
         CheckSavingLastChapter();
+        levelBuilder.DespawnAll();
 
         LoadLevel();
+        StartCoroutine(LoadLevelCoroutine());
     }
 
     public void LoadLevel()

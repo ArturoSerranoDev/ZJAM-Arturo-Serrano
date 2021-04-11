@@ -27,15 +27,15 @@ MonoBehaviour:
   levelDialog: {fileID: 11400000, guid: afde195d824a3e44e8cb3ec5f83bfd25, type: 2}
   levelTiles:
   - T
-  - T
-  - T
-  - T
-  - T
-  - T
-  - T
-  - T
-  - T
-  - T
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -131,3 +131,4 @@ MonoBehaviour:
   floorMat: {fileID: 2800000, guid: 3d5638e584fc71743b4c50128d46be6d, type: 3}
   tilePrefab: {fileID: 1299894681180897121, guid: 80461460436f98a4392321ab41ae8ca0,
     type: 3}
+  cheatCode: []

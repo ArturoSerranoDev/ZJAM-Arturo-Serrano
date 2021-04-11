@@ -14,6 +14,7 @@ public class LevelBuilder : MonoBehaviour
 
     public List<GameObject> tilesInLevel = new List<GameObject>();
     public List<EnemyView> enemiesInLevel = new List<EnemyView>();
+    public List<BuildingView> buildings = new List<BuildingView>();
 
     public Material floorMat;
 
@@ -36,6 +37,22 @@ public class LevelBuilder : MonoBehaviour
                 newTile.transform.position = new Vector3(i, 0, j);
             }
         }
+    }
+
+    public void DespawnAll()
+    {
+        PoolManager.Instance.Despawn(player.gameObject);
+
+        foreach (EnemyView item in enemiesInLevel)
+        {
+            PoolManager.Instance.Despawn(item.gameObject);
+        }
+
+        foreach (BuildingView item in buildings)
+        {
+            PoolManager.Instance.Despawn(item.gameObject);
+        }
+
     }
 
     public void BuildLevel(LevelData levelData)
@@ -93,6 +110,7 @@ public class LevelBuilder : MonoBehaviour
 
     void SpawnBuildings(LevelData levelData)
     {
+
         Debug.Log("SpawnBuildings");
     }
 

@@ -185,6 +185,13 @@ public class UIController : MonoBehaviour
 
     }
 
+    public void NextLevel()
+    {
+        LevelController.Instance.LoadNextLevel();
+
+        winLosePanel.GetComponent<CanvasGroup>().DOFade(0, 0.5f).From(1).SetEase(Ease.InOutSine).OnComplete(() => winLosePanel.gameObject.SetActive(false));
+
+    }
 
     public IEnumerator PlayPressedCoroutine()
     {

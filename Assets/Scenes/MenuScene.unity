@@ -823,7 +823,7 @@ RectTransform:
   - {fileID: 1039080394}
   - {fileID: 1343952761}
   m_Father: {fileID: 1441662625}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2150,7 +2150,7 @@ RectTransform:
   - {fileID: 763619704}
   - {fileID: 1433388666}
   m_Father: {fileID: 1441662625}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3419,7 +3419,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 893742312}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1798906108}
+        m_MethodName: MoveToNextArtwork
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &893742312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3886,7 +3897,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 954198429}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1798906108}
+        m_MethodName: MoveToNextArtwork
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &954198429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3954,7 +3976,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1441662625}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4529,15 +4551,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.25943398, b: 0.25943398, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: e0ad2362b6458c545a54a8c15b86aeda, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -5944,18 +5966,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387489276}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.10691672, y: 0.10691672, z: 0.10691672}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 498142921}
   - {fileID: 287251011}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1441662625}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 9.353074}
-  m_SizeDelta: {x: 1081.3273, y: 608.2465}
+  m_AnchoredPosition: {x: 0, y: 78.12689}
+  m_SizeDelta: {x: -838.67285, y: -471.75348}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1387489278
 CanvasGroup:
@@ -6421,6 +6443,7 @@ RectTransform:
   m_Children:
   - {fileID: 263285261}
   - {fileID: 1793748108}
+  - {fileID: 1387489277}
   - {fileID: 559776529}
   - {fileID: 186841228}
   - {fileID: 968003933}
@@ -7842,6 +7865,7 @@ MonoBehaviour:
   newGameText: {fileID: 1317847095}
   continueGameText: {fileID: 892262156}
   fadeBlackRect: {fileID: 968003933}
+  artworkImage: {fileID: 1062318119}
   levelsButton:
   - {fileID: 1445185811}
   - {fileID: 1453769139}
@@ -7851,6 +7875,10 @@ MonoBehaviour:
   - {fileID: 604994976}
   - {fileID: 469432928}
   - {fileID: 1574570907}
+  artworksSprites:
+  - {fileID: 21300000, guid: a3a6d082ac880444a9432f0fec232f2f, type: 3}
+  - {fileID: 21300000, guid: 7d6d02a497cf705418ee2708b1bf295b, type: 3}
+  - {fileID: 21300000, guid: 79e03c4a12caf6042b4ab57972b4268b, type: 3}
 --- !u!4 &1798906109
 Transform:
   m_ObjectHideFlags: 0

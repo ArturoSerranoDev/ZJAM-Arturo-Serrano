@@ -21,11 +21,14 @@ public class UIMenuController : MonoBehaviour
     public GameObject continueGameText;
 
     public RectTransform fadeBlackRect;
+    public Image artworkImage;
 
     public List<Button> levelsButton = new List<Button>();
+    public List<Sprite> artworksSprites = new List<Sprite>();
 
     bool tweeningCredits;
 
+    int galleryIndex = 0;
     void Awake()
     {
         fadeBlackRect.gameObject.SetActive(false);
@@ -84,11 +87,27 @@ public class UIMenuController : MonoBehaviour
 
     public void GoToArtGallery()
     {
+        galleryIndex = 0;
+
         mainMenuPanelCanvasGroup.DOFade(0, 0.25f).From(1).OnComplete(() => mainMenuPanelCanvasGroup.gameObject.SetActive(false)).SetEase(Ease.InOutSine);
 
         artGalleryCanvasGroup.gameObject.SetActive(true);
 
         artGalleryCanvasGroup.DOFade(1, 0.25f).From(0).SetDelay(0.25f).SetEase(Ease.InOutSine);
+
+        artworkImage.sprite = artworksSprites[galleryIndex];
+    }
+
+    public void MoveToNextArtwork(int rigth)
+    {
+        if (galleryIndex <= 0 && rigth == -1)
+            return;
+        if (galleryIndex >= artworksSprites.Count - 1 && rigth == 1)
+            return;
+
+        galleryIndex += rigth;
+
+        artworkImage.sprite = artworksSprites[galleryIndex];
     }
 
     public void ShowCredits()
